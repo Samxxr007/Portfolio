@@ -1057,3 +1057,196 @@ header.bg-transparent button:hover { color: #FF4F2B !important; }
   .skills-marquee-track { animation: none; }
   .chapter-row { will-change: auto; }
 }
+
+
+/* === VISIBILITY / CONTRAST FIXES: beat the legacy ID-level theme rules === */
+.portfolio-story > #about.story-chapter {
+  background: #151515 !important;
+  color: #F5F1E8 !important;
+}
+.portfolio-story > #skills.story-chapter {
+  background: #EAE5DC !important;
+  color: #151515 !important;
+}
+.portfolio-story > #experience.story-chapter {
+  background: #111110 !important;
+  color: #F5F1E8 !important;
+}
+.portfolio-story > #projects.story-chapter {
+  background: #151515 !important;
+  color: #F5F1E8 !important;
+}
+.portfolio-story > #certificates.story-chapter {
+  background: #EAE5DC !important;
+  color: #151515 !important;
+}
+.portfolio-story > #contact.story-chapter {
+  background: #111110 !important;
+  color: #F5F1E8 !important;
+}
+
+/* The old #section heading rules were stronger than the first chapter styles. */
+.portfolio-story > #about.story-chapter .chapter-heading,
+.portfolio-story > #experience.story-chapter .chapter-heading,
+.portfolio-story > #projects.story-chapter .chapter-heading,
+.portfolio-story > #contact.story-chapter .chapter-heading {
+  color: #F5F1E8 !important;
+  text-align: left !important;
+  font-style: normal !important;
+  font-family: var(--font-display) !important;
+  text-transform: uppercase !important;
+  letter-spacing: -.085em !important;
+}
+.portfolio-story > #skills.story-chapter .chapter-heading,
+.portfolio-story > #certificates.story-chapter .chapter-heading {
+  color: #151515 !important;
+  text-align: left !important;
+  font-style: normal !important;
+  font-family: var(--font-display) !important;
+  text-transform: uppercase !important;
+  letter-spacing: -.085em !important;
+}
+.portfolio-story > #about.story-chapter .about-heading,
+.portfolio-story > #projects.story-chapter .projects-heading .chapter-heading {
+  font-size: clamp(3.7rem, 9.4vw, 9.8rem) !important;
+  line-height: .84 !important;
+}
+.portfolio-story > #skills.story-chapter .skills-heading .chapter-heading {
+  font-size: clamp(3.6rem, 8.8vw, 8.7rem) !important;
+  line-height: .85 !important;
+}
+.portfolio-story > #experience.story-chapter .experience-heading .chapter-heading {
+  font-size: clamp(3.8rem, 9vw, 9rem) !important;
+  line-height: .84 !important;
+}
+.portfolio-story > #contact.story-chapter .contact-heading .chapter-heading {
+  font-size: clamp(3.7rem, 9.5vw, 9.2rem) !important;
+  line-height: .85 !important;
+}
+.portfolio-story > #about.story-chapter .about-intro,
+.portfolio-story > #about.story-chapter .about-statement > p,
+.portfolio-story > #about.story-chapter .about-focus-row p {
+  color: rgba(245,241,232,.86) !important;
+}
+.portfolio-story > #about.story-chapter .about-focus-row h3 { color: #F5F1E8 !important; }
+.portfolio-story > #experience.story-chapter .experience-entry-points p {
+  color: rgba(245,241,232,.82) !important;
+}
+.portfolio-story > #experience.story-chapter .experience-entry-company small,
+.portfolio-story > #experience.story-chapter .experience-entry-location,
+.portfolio-story > #experience.story-chapter .experience-entry-status {
+  color: rgba(245,241,232,.66) !important;
+}
+.portfolio-story > #experience.story-chapter .experience-entry-status.is-current {
+  color: #FF6849 !important;
+}
+.portfolio-story > #experience.story-chapter .experience-entry-skills span {
+  color: rgba(245,241,232,.78) !important;
+  border-color: rgba(245,241,232,.3) !important;
+}
+.portfolio-story > #projects.story-chapter .project-feature-meta,
+.portfolio-story > #projects.story-chapter .project-feature-description,
+.portfolio-story > #projects.story-chapter .project-feature-tags span,
+.portfolio-story > #projects.story-chapter .project-feature-links a,
+.portfolio-story > #projects.story-chapter .project-archive-category,
+.portfolio-story > #projects.story-chapter .project-archive-metric,
+.portfolio-story > #projects.story-chapter .projects-endline {
+  color: rgba(245,241,232,.76) !important;
+}
+.portfolio-story > #projects.story-chapter .project-archive-intro h3,
+.portfolio-story > #projects.story-chapter .project-archive-row,
+.portfolio-story > #projects.story-chapter .project-archive-title,
+.portfolio-story > #projects.story-chapter .project-archive-toggle,
+.portfolio-story > #projects.story-chapter .project-detail-link,
+.portfolio-story > #projects.story-chapter .projects-endline a {
+  color: #F5F1E8 !important;
+}
+.portfolio-story > #projects.story-chapter .project-archive-filters button {
+  color: rgba(245,241,232,.82) !important;
+  border-color: rgba(245,241,232,.32) !important;
+}
+.portfolio-story > #projects.story-chapter .project-archive-filters button.is-active {
+  background: #F5F1E8 !important;
+  color: #151515 !important;
+}
+.portfolio-story > #projects.story-chapter .project-archive-filters button.is-active span {
+  color: #FF4F2B !important;
+}
+.portfolio-story > #certificates.story-chapter .text-white { color: #151515 !important; }
+.portfolio-story > #certificates.story-chapter .text-slate-400,
+.portfolio-story > #certificates.story-chapter .text-slate-300,
+.portfolio-story > #certificates.story-chapter .text-slate-500 { color: #4A4742 !important; }
+.portfolio-story > #contact.story-chapter .text-white { color: #F5F1E8 !important; }
+.portfolio-story > #contact.story-chapter .text-slate-400,
+.portfolio-story > #contact.story-chapter .text-slate-300,
+.portfolio-story > #contact.story-chapter .text-slate-500 { color: rgba(245,241,232,.78) !important; }
+
+/* Dark scene's no-WebGL fallback: a recognizable working laptop, not a blank block. */
+.scene-fallback { perspective: 1000px; isolation: isolate; }
+.scene-fallback__halo {
+  position: absolute; width: 72%; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,79,43,.2), rgba(255,79,43,.035) 42%, transparent 70%);
+  filter: blur(24px); pointer-events: none;
+}
+.scene-fallback__orbit {
+  position: absolute; width: 82%; height: 72%; border: 2px solid #FF4F2B;
+  border-radius: 50%; transform: rotate(-25deg) rotateX(56deg);
+  box-shadow: 0 0 24px rgba(255,79,43,.12); animation: fallback-orbit 18s linear infinite;
+}
+.scene-fallback__orbit span {
+  position: absolute; width: 13px; height: 13px; border: 3px solid #151515;
+  border-radius: 50%; background: #F5F1E8; box-shadow: 0 0 0 2px #FF4F2B;
+}
+.scene-fallback__orbit span:nth-child(1) { left: 8%; top: 47%; }
+.scene-fallback__orbit span:nth-child(2) { right: 14%; top: 17%; background: #FF4F2B; }
+.scene-fallback__orbit span:nth-child(3) { right: 25%; bottom: 2%; }
+@keyframes fallback-orbit { to { transform: rotate(335deg) rotateX(56deg); } }
+.scene-fallback__artifact {
+  position: relative; z-index: 1; width: min(76%, 540px);
+  transform: rotateY(-15deg) rotateX(4deg); transform-style: preserve-3d;
+  filter: drop-shadow(18px 30px 28px rgba(0,0,0,.3));
+}
+.scene-fallback__screen {
+  position: relative; width: 88%; aspect-ratio: 1.45; margin-inline: auto;
+  padding: 5.5% 5% 4%; border: 7px solid #BDB8AE; border-bottom-width: 12px;
+  border-radius: 12px 12px 4px 4px; background: #111412; overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.14);
+}
+.scene-fallback__screen-bar { display: flex; align-items: center; gap: 5px; padding-bottom: 6%; border-bottom: 1px solid #373A35; }
+.scene-fallback__screen-bar > span { width: 6px; height: 6px; border-radius: 50%; background: #FF4F2B; }
+.scene-fallback__screen-bar > span:nth-child(2) { background: #BEB9AE; }
+.scene-fallback__screen-bar > span:nth-child(3) { background: #777A70; }
+.scene-fallback__screen-bar small { margin-left: auto; font: 7px var(--font-mono); letter-spacing: .1em; color: #9A9B92; }
+.scene-fallback__code { width: 88%; padding-top: 7%; }
+.scene-fallback__code-line { display: block; height: 4px; margin-bottom: 4.8%; border-radius: 2px; }
+.scene-fallback__code-line--signal { background: #FF4F2B; }
+.scene-fallback__code-line--light { background: #D6D0C6; }
+.scene-fallback__code-line--muted { background: #656A61; }
+.scene-fallback__screen-foot { position: absolute; left: 5%; right: 5%; bottom: 5%; display: flex; justify-content: space-between; gap: 6px; font: 6px var(--font-mono); letter-spacing: .1em; color: #777B70; }
+.scene-fallback__screen-foot b { color: #FF4F2B; font-weight: 400; }
+.scene-fallback__deck {
+  height: 24%; margin-top: -2px; padding: 3% 8% 4%;
+  background: linear-gradient(180deg, #D1CCC2 0%, #938F87 80%, #6D6B66 100%);
+  clip-path: polygon(9% 0, 91% 0, 100% 100%, 0 100%);
+  border-bottom: 3px solid #5D5A55; position: relative;
+}
+.scene-fallback__keys { display: grid; grid-template-columns: repeat(11, 1fr); gap: 2px 3px; width: 80%; margin: 0 auto; }
+.scene-fallback__keys span { height: clamp(3px, .65vw, 7px); background: #393A37; border-radius: 1px; }
+.scene-fallback__trackpad { width: 25%; height: 20%; margin: 5% auto 0; border: 1px solid #79766F; border-radius: 2px; }
+.scene-fallback__signal { position: absolute; right: 21%; bottom: 12%; width: 7%; height: 3px; background: #FF4F2B; }
+.scene-fallback__annotation {
+  position: absolute; z-index: 2; font: 8px/1.8 var(--font-mono);
+  letter-spacing: .14em; color: rgba(245,241,232,.53); pointer-events: none;
+}
+.scene-fallback__annotation b { color: #FF4F2B; font-weight: 500; }
+.scene-fallback__annotation--left { left: 1%; top: 48%; }
+.scene-fallback__annotation--right { right: 0; bottom: 19%; text-align: right; }
+@media (max-width: 760px) {
+  .scene-fallback__artifact { width: 78%; }
+  .scene-fallback__annotation { font-size: 7px; }
+  .scene-fallback__annotation--left { left: -1%; }
+  .scene-fallback__annotation--right { right: -1%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene-fallback__orbit { animation: none; }
+}
