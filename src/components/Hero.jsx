@@ -45,10 +45,10 @@ export default function Hero() {
                 scrollTrigger: {
                     trigger: hero,
                     start: "top top",
-                    end: () => `+=${Math.round(window.innerHeight * (window.innerWidth < 760 ? 0.82 : 1.45))}`,
+                    end: () => `+=${Math.round(window.innerHeight * (window.innerWidth < 760 ? 0.78 : 1.25))}`,
                     pin: true,
                     pinSpacing: true,
-                    scrub: 0.9,
+                    scrub: 0.38,
                     anticipatePin: 1,
                     invalidateOnRefresh: true,
                     onUpdate: (self) => { scrollProgressRef.current = self.progress; },
@@ -60,7 +60,7 @@ export default function Hero() {
                 .to(lineOneRef.current, { xPercent: -13, yPercent: -24, autoAlpha: 0.12 }, 0)
                 .to(lineTwoRef.current, { xPercent: 12, yPercent: -42, autoAlpha: 0.1 }, 0)
                 .to(lineThreeRef.current, { xPercent: -5, yPercent: -58, autoAlpha: 0.06 }, 0)
-                .to(artworkRef.current, { scale: 1.08, xPercent: -2, yPercent: -2 }, 0)
+                .to(artworkRef.current, { scale: 1.1, xPercent: -2, yPercent: -2, rotation: 2 }, 0)
                 .to(".orbital-hero__support", { y: -44, autoAlpha: 0.05 }, 0.18)
                 .to(".orbital-hero__eyebrow, .orbital-hero__footer", { autoAlpha: 0.05 }, 0.12);
         }, hero);
