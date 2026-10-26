@@ -37,20 +37,10 @@ export default function App() {
     if (!root) return undefined;
 
     const context = gsap.context(() => {
-      // Initial entry remains short; the actual story choreography is controlled by scroll below.
-      gsap.timeline({ defaults: { ease: "power3.out" } })
-        .fromTo(".orbital-hero__eyebrow",
-          { y: 18, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.55 })
-        .fromTo(".orbital-hero__copy",
-          { y: 38, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.8 }, "-=0.25")
-        .fromTo(".orbital-hero__artwork",
-          { y: 24, scale: 0.96, autoAlpha: 0 },
-          { y: 0, scale: 1, autoAlpha: 1, duration: 0.9 }, "-=0.55")
-        .fromTo(".orbital-hero__footer",
-          { y: 12, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.45 }, "-=0.45");
+      // Keep hero transforms owned by Hero.jsx. A second intro timeline here
+      // used to animate the same artwork while ScrollTrigger was scrubbing it,
+      // causing the sculpture to feel like it was fighting the scroll.
+
 
       // Each chapter now has its own staggered, reversible scroll sequence.
       // Unlike the previous first-child fade, this animates the headings,
