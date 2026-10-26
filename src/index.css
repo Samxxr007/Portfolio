@@ -1297,3 +1297,23 @@ header.bg-transparent button:hover { color: #FF4F2B !important; }
   .portfolio-story > #projects.story-chapter .project-feature-description { font-size: 14px !important; }
   .portfolio-story > #projects.story-chapter .project-feature-row { grid-template-columns: 28px minmax(0,1fr); }
 }
+
+
+/* Final title-color correction.
+   The earlier generic section-heading rule colors every h3 ink-black with !important.
+   These project/experience titles sit on charcoal chapters, so override that rule
+   with matching section scope and explicit high-contrast colors. */
+.portfolio-story > #projects.story-chapter .project-feature-body h3 {
+  color: #F5F1E8 !important;
+}
+.portfolio-story > #projects.story-chapter .project-feature-body h3 .project-period {
+  color: #FF4F2B !important;
+}
+.portfolio-story > #experience.story-chapter .experience-entry-main h3 {
+  color: #F5F1E8 !important;
+}
+.portfolio-story > #experience.story-chapter .experience-entry-main h3::selection,
+.portfolio-story > #projects.story-chapter .project-feature-body h3::selection {
+  background: #FF4F2B;
+  color: #151515;
+}
