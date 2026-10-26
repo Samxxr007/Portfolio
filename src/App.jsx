@@ -29,74 +29,49 @@ export default function App() {
   useEffect(() => {
     if (isLoading) return undefined;
 
-    const root = document.querySelector(".portfolio-story");
-    if (!root) return undefined;
+    const sections = Array.from(document.querySelectorAll(
+      ".portfolio-story > .story-chapter, .portfolio-story > #home"
+    ));
+    if (!sections.length) return undefined;
 
-    const selector = [
-      ".chapter-kicker",
-      ".chapter-heading",
-      ".chapter-intro",
-      ".chapter-rail",
-      ".chapter-row",
-      ".skills-marquee",
-      ".project-archive",
-      ".credential-stage",
-      ".credential-index-item",
-      ".contact-finale__thought",
-      ".contact-finale__email",
-      ".contact-finale__orbit",
-      ".contact-finale__bottom",
-      ".contact-finale__footer",
-      ".orbital-feature__copy",
-      ".orbital-feature__diagram",
-    ].join(", ");
-
-    const targets = Array.from(root.querySelectorAll(selector));
+    // Every chapter gets a one-shot entrance when it actually reaches the viewport.
+    // Nothing is hidden before the observer fires, so direct hash links stay readable.
     if (reducedMotion || !("IntersectionObserver" in window)) {
-      root.classList.remove("story-reveal-ready");
-      targets.forEach((target) => target.classList.remove("story-reveal", "is-visible"));
+      sections.forEach((section) => section.classList.add("chapter-motion-live"));
       return undefined;
     }
-
-    // Reset stale classes from Vite HMR, browser back/forward and hash navigation.
-    targets.forEach((target) => {
-      target.classList.add("story-reveal");
-      target.classList.remove("is-visible");
-    });
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
+        entry.target.classList.add("chapter-motion-live");
         observer.unobserve(entry.target);
       });
-    }, {
-      root: null,
-      rootMargin: "0px 0px -7% 0px",
-      threshold: 0.04,
+    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+
+    sections.forEach((section) => {
+      section.classList.remove("chapter-motion-live");
+      section.classList.add("chapter-motion-ready");
+      observer.observe(section);
     });
 
-    targets.forEach((target) => observer.observe(target));
-    root.classList.add("story-reveal-ready");
-
-    // Hash navigation may land directly in the middle of a chapter; explicitly
-    // reveal anything already on screen so it can never remain invisible.
-    const revealCurrentViewport = () => {
-      targets.forEach((target) => {
-        const rect = target.getBoundingClientRect();
+    const revealVisibleSections = () => {
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
         if (rect.bottom > 0 && rect.top < window.innerHeight) {
-          target.classList.add("is-visible");
-          observer.unobserve(target);
+          section.classList.add("chapter-motion-live");
+          observer.unobserve(section);
         }
       });
     };
-    const frame = window.requestAnimationFrame(revealCurrentViewport);
+    const frame = window.requestAnimationFrame(revealVisibleSections);
 
     return () => {
       window.cancelAnimationFrame(frame);
       observer.disconnect();
-      root.classList.remove("story-reveal-ready");
-      targets.forEach((target) => target.classList.remove("story-reveal", "is-visible"));
+      sections.forEach((section) => {
+        section.classList.remove("chapter-motion-ready", "chapter-motion-live");
+      });
     };
   }, [isLoading, reducedMotion]);
 
