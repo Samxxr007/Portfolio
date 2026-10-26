@@ -44,7 +44,7 @@ export default function Hero() {
                     end: () => `+=${Math.round(window.innerHeight * (window.innerWidth < 760 ? 0.78 : 1.25))}`,
                     pin: true,
                     pinSpacing: true,
-                    scrub: 0.38,
+                    scrub: true,
                     anticipatePin: 1,
                     invalidateOnRefresh: true,
                     onUpdate: (self) => { scrollProgressRef.current = self.progress; },
