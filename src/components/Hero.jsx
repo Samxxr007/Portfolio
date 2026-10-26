@@ -24,41 +24,78 @@ export default function Hero() {
     const artworkRef = useRef(null);
     const indiaX = projects.find((project) => project.id === "indiax") || projects[0];
 
-    // Keep normal document flow intact. Animation is scoped to the hero and
-    // never pins the page or overlays hidden full-screen chapters on later sections.
+    // A pinned, scrubbed chapter makes scrolling the animation control. The
+    // 3D sculpture follows the same progress ref, so the object and typography
+    // move as one scene instead of having unrelated, barely-visible parallax.
     useEffect(() => {
         if (reducedMotion || !heroRef.current) return undefined;
 
+        const hero = heroRef.current;
         const context = gsap.context(() => {
-            const timeline = gsap.timeline({
+            const scene = gsap.timeline({
                 scrollTrigger: {
-                    trigger: heroRef.current,
+                    trigger: hero,
                     start: "top top",
-                    end: "bottom top",
-                    scrub: 0.35,
+                    end: () => `+=${Math.round(window.innerHeight * (window.innerWidth < 760 ? 0.9 : 1.35))}`,
+                    pin: true,
+                    pinSpacing: true,
+                    scrub: 0.45,
+                    anticipatePin: 1,
+                    invalidateOnRefresh: true,
+                    onUpdate: (self) => {
+                        scrollProgressRef.current = self.progress;
+                    },
+                    onRefresh: (self) => {
+                        scrollProgressRef.current = self.progress;
+                    },
                 },
             });
 
-            timeline
-                .to([lineOneRef.current, lineTwoRef.current], {
-                    yPercent: -10,
-                    opacity: 0.72,
+            scene
+                .to(lineOneRef.current, {
+                    xPercent: -16,
+                    yPercent: -34,
+                    autoAlpha: 0.08,
+                    ease: "none",
+                }, 0)
+                .to(lineTwoRef.current, {
+                    xPercent: 17,
+                    yPercent: -52,
+                    autoAlpha: 0.06,
                     ease: "none",
                 }, 0)
                 .to(lineThreeRef.current, {
-                    yPercent: -6,
-                    xPercent: -2,
+                    xPercent: -8,
+                    yPercent: -72,
+                    autoAlpha: 0.04,
                     ease: "none",
                 }, 0)
                 .to(artworkRef.current, {
-                    yPercent: 8,
-                    rotate: -3,
-                    scale: 0.96,
+                    scale: 1.2,
+                    rotation: 9,
+                    xPercent: -4,
+                    yPercent: -5,
                     ease: "none",
-                }, 0);
-        }, heroRef);
+                }, 0)
+                .to(".orbital-hero__support", {
+                    y: -72,
+                    autoAlpha: 0,
+                    ease: "none",
+                }, 0.12)
+                .to(".orbital-hero__eyebrow, .orbital-hero__footer", {
+                    autoAlpha: 0,
+                    ease: "none",
+                }, 0.1);
+        }, hero);
 
-        return () => context.revert();
+        // Refresh after browser layout, fonts and the WebGL canvas have settled.
+        const refreshId = window.requestAnimationFrame(() => ScrollTrigger.refresh());
+
+        return () => {
+            window.cancelAnimationFrame(refreshId);
+            scrollProgressRef.current = 0;
+            context.revert();
+        };
     }, [reducedMotion]);
 
     const handleScrollToArchive = () => {
