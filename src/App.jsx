@@ -37,46 +37,39 @@ export default function App() {
     if (!root) return undefined;
 
     const context = gsap.context(() => {
-      // Keep hero transforms owned by Hero.jsx. A second intro timeline here
-      // used to animate the same artwork while ScrollTrigger was scrubbing it,
-      // causing the sculpture to feel like it was fighting the scroll.
-
-
-      // Each chapter now has its own staggered, reversible scroll sequence.
-      // Unlike the previous first-child fade, this animates the headings,
-      // chapter rows, and chapter-specific visual elements independently.
-      const chapterTargets = [
-        ".chapter-kicker",
-        ".chapter-heading",
-        ".chapter-intro",
-        ".chapter-rail",
-        ".chapter-row",
-        ".about-statement",
-        ".skills-marquee",
-        ".experience-endnote",
-        ".project-archive",
-        ".projects-endline",
-        ".certificates-heading",
-        ".contact-heading",
-      ].join(", ");
-
+      // Entrance reveals are time-based and fire once. Avoid tying dozens of text
+      // elements to one long scrubbed timeline, which made wheel scrolling feel sticky.
       gsap.utils.toArray("main > section.story-chapter").forEach((section) => {
-        const targets = section.querySelectorAll(chapterTargets);
+        const targets = section.querySelectorAll([
+          ".chapter-kicker",
+          ".chapter-heading",
+          ".chapter-intro",
+          ".chapter-rail",
+          ".chapter-row",
+          ".skills-marquee",
+          ".project-archive",
+          ".credential-stage",
+          ".credential-index-item",
+          ".contact-finale__hero",
+          ".contact-finale__bottom",
+          ".contact-finale__footer",
+        ].join(", "));
+
         if (!targets.length) return;
 
         gsap.fromTo(targets,
-          { y: 34, autoAlpha: 0 },
+          { y: 22, autoAlpha: 0 },
           {
             y: 0,
             autoAlpha: 1,
+            duration: 0.72,
             ease: "power3.out",
-            stagger: { each: 0.075, from: "start" },
+            stagger: { each: 0.055, from: "start" },
             immediateRender: false,
             scrollTrigger: {
               trigger: section,
-              start: "top 82%",
-              end: "top 24%",
-              scrub: 0.7,
+              start: "top 79%",
+              once: true,
               invalidateOnRefresh: true,
             },
           }
@@ -87,17 +80,17 @@ export default function App() {
       if (feature) {
         gsap.fromTo(
           feature.querySelectorAll(".orbital-feature__copy, .orbital-feature__diagram"),
-          { y: 42, autoAlpha: 0 },
+          { y: 28, autoAlpha: 0 },
           {
             y: 0,
             autoAlpha: 1,
-            duration: 0.9,
-            stagger: 0.16,
+            duration: 0.85,
+            stagger: 0.12,
             ease: "power3.out",
             immediateRender: false,
             scrollTrigger: {
               trigger: feature,
-              start: "top 85%",
+              start: "top 82%",
               once: true,
               invalidateOnRefresh: true,
             },
@@ -105,8 +98,6 @@ export default function App() {
         );
       }
 
-      // A chapter may change height at mobile breakpoints or when its archive expands.
-      // ScrollTrigger's refresh plus responsive refresh keeps starts/ends in sync.
       refreshFrame = window.requestAnimationFrame(() => ScrollTrigger.refresh());
     }, root);
 
