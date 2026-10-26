@@ -1,7 +1,8 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
-// Predefined modern color themes
+// Predefined modern color themes with Signal Orange as primary Orbital Archive default
 export const THEMES = [
+    { id: "signal-orange", name: "Signal Orange (Orbital)", color: "#FF5A36", hsl: "11 100% 61%" },
     { id: "ocean-blue", name: "Ocean Blue", color: "#0EA5E9", hsl: "199 89% 48%" },
     { id: "default-gold", name: "Warm Gold", color: "#EAB308", hsl: "45 93% 47%" },
     { id: "rose-pink", name: "Rose Pink", color: "#F43F5E", hsl: "349 89% 60%" },
@@ -15,20 +16,22 @@ export const THEMES = [
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-    const [accentColor, setAccentColor] = useState(THEMES[0]);
-    const [isCustomizerOpen, setIsCustomizerOpen] = useState(false);
-
-    useEffect(() => {
-        // Load from local storage on mount
-        const saved = localStorage.getItem("portfolio-theme");
-        if (saved) {
-            try {
-                setAccentColor(JSON.parse(saved));
-            } catch (e) {
-                // ignore
+    // Initializer function loads saved theme synchronously without cascading render
+    const [accentColor, setAccentColor] = useState(() => {
+        if (typeof window !== "undefined") {
+            const saved = localStorage.getItem("portfolio-theme");
+            if (saved) {
+                try {
+                    return JSON.parse(saved);
+                } catch {
+                    // fall back to default
+                }
             }
         }
-    }, []);
+        return THEMES[0];
+    });
+
+    const [isCustomizerOpen, setIsCustomizerOpen] = useState(false);
 
     useEffect(() => {
         // Set CSS variable
