@@ -9,8 +9,8 @@ export default function Projects() {
     const [selectedProject, setSelectedProject] = useState(null);
     const [isArchiveOpen, setIsArchiveOpen] = useState(false);
 
-    const featuredProjects = projects.filter((project) => project.featured && project.id !== "indiax");
-    const archiveProjects = projects.filter((project) => !project.featured || project.id === "indiax");
+    const featuredProjects = projects.filter((project) => project.featured);
+    const archiveProjects = projects.filter((project) => !project.featured);
     const filteredProjects = activeTab === "All"
         ? archiveProjects
         : archiveProjects.filter((project) => project.category === activeTab);
