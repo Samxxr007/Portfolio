@@ -1775,3 +1775,50 @@ header.bg-transparent button:hover { color: #FF4F2B !important; }
   .contact-finale__orbit-ring--one,
   .contact-finale__orbit-ring--two { animation: none; }
 }
+
+
+/* Reliable, low-latency chapter reveals. Visibility defaults to normal unless
+   the observer is successfully attached, so direct hash navigation never hides copy. */
+.portfolio-story.story-reveal-ready .story-reveal {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition:
+    opacity 680ms cubic-bezier(.2, .72, .25, 1),
+    transform 680ms cubic-bezier(.2, .72, .25, 1);
+  backface-visibility: hidden;
+}
+.portfolio-story.story-reveal-ready .story-reveal:not(.is-visible) {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+}
+.portfolio-story.story-reveal-ready .story-reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+.portfolio-story.story-reveal-ready .credential-index-item.story-reveal:not(.is-visible) {
+  transform: translate3d(0, 10px, 0);
+}
+.portfolio-story.story-reveal-ready .chapter-row.story-reveal {
+  transition-duration: 720ms;
+}
+.portfolio-story .story-chapter .chapter-kicker {
+  color: #FF4F2B !important;
+  opacity: 1 !important;
+}
+.portfolio-story > #contact.story-chapter .contact-finale__headline .chapter-kicker {
+  color: #FF4F2B !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  font-size: 10px !important;
+  letter-spacing: .15em !important;
+  line-height: 1.6 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-story.story-reveal-ready .story-reveal,
+  .portfolio-story.story-reveal-ready .story-reveal:not(.is-visible),
+  .portfolio-story.story-reveal-ready .story-reveal.is-visible {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
