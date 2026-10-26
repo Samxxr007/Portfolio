@@ -1933,3 +1933,183 @@ header.bg-transparent button:hover { color: #FF4F2B !important; }
     transform: none !important;
   }
 }
+
+
+/* ── Responsive alternating chapter system ──
+   Editorial rhythm: light / dark / light / dark / light / dark / light.
+   Palette is intentionally limited to ink, paper and signal orange. */
+:root {
+  --story-paper: #F5F1E8;
+  --story-ink: #151515;
+  --story-muted-on-light: #5D5A54;
+  --story-muted-on-dark: #B7B2A9;
+  --story-accent: #FF4F2B;
+  --story-rule-light: rgba(21, 21, 21, .18);
+  --story-rule-dark: rgba(245, 241, 232, .2);
+}
+.portfolio-story > #home,
+.portfolio-story > #skills,
+.portfolio-story > #projects,
+.portfolio-story > #contact {
+  background-color: var(--story-paper) !important;
+  color: var(--story-ink) !important;
+  color-scheme: light;
+}
+.portfolio-story > #about,
+.portfolio-story > #experience,
+.portfolio-story > #certificates {
+  background-color: var(--story-ink) !important;
+  color: var(--story-paper) !important;
+  color-scheme: dark;
+}
+.portfolio-story > #about :is(h1,h2,h3,h4,p,li,span,small,strong,em,label),
+.portfolio-story > #experience :is(h1,h2,h3,h4,p,li,span,small,strong,em,label),
+.portfolio-story > #certificates :is(h1,h2,h3,h4,p,li,span,small,strong,em,label) {
+  color: inherit;
+}
+.portfolio-story > #about :is(.chapter-intro,.chapter-text,.about-intro,.about-statement),
+.portfolio-story > #experience :is(.chapter-intro,.experience-entry-description,.experience-entry-period),
+.portfolio-story > #certificates :is(.chapter-intro,.credential-active-details p,.credential-stage__topline) {
+  color: var(--story-muted-on-dark) !important;
+}
+.portfolio-story > #skills :is(h1,h2,h3,h4,p,li,span,small,strong,em,label),
+.portfolio-story > #projects :is(h1,h2,h3,h4,p,li,span,small,strong,em,label),
+.portfolio-story > #contact :is(h1,h2,h3,h4,p,li,span,small,strong,em,label) {
+  color: inherit;
+}
+.portfolio-story > #skills :is(.chapter-intro,.skills-index-category,.skills-index-list),
+.portfolio-story > #projects :is(.chapter-intro,.project-period,.project-feature-description,.project-feature-meta),
+.portfolio-story > #contact :is(.contact-finale__thought,.contact-finale__availability,.contact-finale__footer) {
+  color: var(--story-muted-on-light) !important;
+}
+.portfolio-story > #about :is(.chapter-kicker,.chapter-label,.chapter-rail__number),
+.portfolio-story > #experience :is(.chapter-kicker,.chapter-label,.experience-entry-number),
+.portfolio-story > #certificates :is(.chapter-kicker,.chapter-label,.credential-count) {
+  color: var(--story-accent) !important;
+}
+.portfolio-story > #skills :is(.chapter-kicker,.chapter-label,.skills-index-number),
+.portfolio-story > #projects :is(.chapter-kicker,.chapter-label,.project-feature-index),
+.portfolio-story > #contact :is(.chapter-kicker,.chapter-label,.contact-finale__eyebrow) {
+  color: var(--story-accent) !important;
+}
+.portfolio-story > #about :is(.chapter-row,.about-focus-row),
+.portfolio-story > #experience :is(.chapter-row,.experience-entry),
+.portfolio-story > #certificates :is(.credential-index-item,.credential-stage) {
+  border-color: var(--story-rule-dark) !important;
+}
+.portfolio-story > #skills :is(.chapter-row,.skills-index-row),
+.portfolio-story > #projects :is(.chapter-row,.project-feature-row,.project-archive),
+.portfolio-story > #contact :is(.contact-finale__bottom,.contact-finale__footer) {
+  border-color: var(--story-rule-light) !important;
+}
+.portfolio-story > #about a,
+.portfolio-story > #experience a,
+.portfolio-story > #certificates a { color: var(--story-paper); }
+.portfolio-story > #skills a,
+.portfolio-story > #projects a,
+.portfolio-story > #contact a { color: var(--story-ink); }
+.portfolio-story > #about a:hover,
+.portfolio-story > #experience a:hover,
+.portfolio-story > #certificates a:hover,
+.portfolio-story > #skills a:hover,
+.portfolio-story > #projects a:hover,
+.portfolio-story > #contact a:hover { color: var(--story-accent); }
+
+/* Flexible layout safeguards for ultrawide monitors, laptops, tablets and phones. */
+.portfolio-story > .story-chapter {
+  width: 100%;
+  min-width: 0;
+  overflow: clip;
+}
+.portfolio-story > .story-chapter .chapter-shell {
+  width: min(100% - clamp(32px, 8vw, 160px), 1440px);
+  margin-inline: auto;
+  min-width: 0;
+}
+.portfolio-story > .story-chapter :is(.chapter-heading,.chapter-intro,.chapter-text,.project-feature-body,.experience-entry-main,.credential-layout,.contact-finale__bottom) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.portfolio-story > .story-chapter .chapter-heading {
+  font-size: clamp(2.65rem, 7.2vw, 8.5rem);
+  line-height: .92;
+  letter-spacing: -.065em;
+  max-width: 100%;
+}
+.portfolio-story > .story-chapter .chapter-intro {
+  font-size: clamp(.95rem, 1.25vw, 1.15rem);
+  line-height: 1.75;
+  max-width: 62ch;
+}
+.portfolio-story > #home .orbital-hero__title {
+  font-size: clamp(3.2rem, 10vw, 10rem);
+  line-height: .86;
+  overflow-wrap: normal;
+}
+.portfolio-story > #home .orbital-hero__composition {
+  grid-template-columns: minmax(0, 1fr) minmax(260px, .9fr);
+}
+.portfolio-story > #home .orbital-hero__copy,
+.portfolio-story > #home .orbital-hero__artwork { min-width: 0; }
+.portfolio-story > #contact .contact-finale__hero {
+  grid-template-columns: minmax(0, 1.2fr) minmax(220px, .8fr);
+}
+.portfolio-story > #contact .contact-finale__headline,
+.portfolio-story > #contact .contact-title { min-width: 0; overflow-wrap: anywhere; }
+.portfolio-story > #contact .contact-finale__bottom {
+  grid-template-columns: minmax(0, 1fr) minmax(280px, .85fr);
+}
+.portfolio-story > #contact :is(input,textarea,select) {
+  max-width: 100%;
+  min-width: 0;
+}
+@media (min-width: 1600px) {
+  .portfolio-story > .story-chapter .chapter-shell { width: min(100% - 12vw, 1500px); }
+}
+@media (max-width: 1024px) {
+  .portfolio-story > .story-chapter .chapter-shell { width: calc(100% - 64px); }
+  .portfolio-story > #home .orbital-hero__composition { grid-template-columns: minmax(0, 1fr) minmax(220px, .8fr); gap: 28px; }
+  .portfolio-story > #contact .contact-finale__hero { grid-template-columns: minmax(0, 1fr) minmax(190px, .7fr); gap: 28px; }
+  .portfolio-story > #contact .contact-finale__bottom { grid-template-columns: minmax(0, 1fr) minmax(260px, .9fr); }
+}
+@media (max-width: 700px) {
+  .portfolio-story > .story-chapter .chapter-shell { width: calc(100% - 36px); }
+  .portfolio-story > .story-chapter { padding-block: clamp(64px, 14vw, 100px) !important; }
+  .portfolio-story > .story-chapter .chapter-heading {
+    font-size: clamp(2.5rem, 13vw, 5rem);
+    line-height: .94;
+    letter-spacing: -.055em;
+  }
+  .portfolio-story > .story-chapter .chapter-intro { font-size: .95rem; line-height: 1.7; }
+  .portfolio-story > #home .orbital-hero__composition,
+  .portfolio-story > #contact .contact-finale__hero,
+  .portfolio-story > #contact .contact-finale__bottom {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .portfolio-story > #home .orbital-hero__title { font-size: clamp(3rem, 15vw, 6rem); }
+  .portfolio-story > #home .orbital-hero__artwork { width: 100%; max-width: 420px; margin-inline: auto; }
+  .portfolio-story > #contact .contact-finale__orbit { width: min(70vw, 300px); margin: 12px auto 0; }
+  .portfolio-story > #about .about-layout,
+  .portfolio-story > #skills .skills-shell,
+  .portfolio-story > #experience .experience-shell,
+  .portfolio-story > #projects .projects-shell,
+  .portfolio-story > #certificates .credential-exhibit,
+  .portfolio-story > #contact .contact-finale { gap: 28px; }
+  .portfolio-story > #projects .project-feature-row { grid-template-columns: 36px minmax(0, 1fr); }
+  .portfolio-story > #projects .project-feature-meta { grid-column: 2; }
+  .portfolio-story > #experience .experience-entry { grid-template-columns: minmax(0, 1fr); }
+  .portfolio-story > #certificates .credential-layout { grid-template-columns: minmax(0, 1fr); }
+  .portfolio-story > #certificates .credential-index { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .portfolio-story > #certificates .credential-index-item { min-width: 0; }
+  .portfolio-story > #contact .contact-note-form__row { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 380px) {
+  .portfolio-story > .story-chapter .chapter-shell { width: calc(100% - 28px); }
+  .portfolio-story > .story-chapter .chapter-heading { font-size: clamp(2.25rem, 12.5vw, 3.3rem); }
+  .portfolio-story > #home .orbital-hero__title { font-size: clamp(2.7rem, 14vw, 3.8rem); }
+  .portfolio-story > #certificates .credential-index { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-story > .story-chapter,
+  .portfolio-story > .story-chapter * { scroll-behavior: auto; }
+}
