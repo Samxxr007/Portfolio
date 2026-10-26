@@ -1822,3 +1822,114 @@ header.bg-transparent button:hover { color: #FF4F2B !important; }
     transition: none !important;
   }
 }
+
+
+/* ── Chapter motion system v2: distinct, viewport-triggered editorial entrances ──
+   Content remains readable by default. Animations only run after a chapter enters view. */
+@keyframes chapter-rise-in {
+  from { opacity: 0; transform: translate3d(0, 34px, 0); filter: blur(5px); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+}
+@keyframes chapter-mask-in {
+  from { clip-path: inset(0 0 100% 0); transform: translate3d(0, 24px, 0); }
+  to { clip-path: inset(0 0 0 0); transform: translate3d(0, 0, 0); }
+}
+@keyframes chapter-slide-in {
+  from { opacity: 0; transform: translate3d(-38px, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes chapter-wipe-in {
+  from { opacity: .15; transform: translate3d(0, 24px, 0) scale(.985); clip-path: inset(0 0 18% 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); clip-path: inset(0 0 0 0); }
+}
+@keyframes chapter-line-grow {
+  from { transform: scaleX(0); transform-origin: left center; }
+  to { transform: scaleX(1); transform-origin: left center; }
+}
+@keyframes chapter-orbit-arrive {
+  from { opacity: 0; transform: translate3d(28px, 0, 0) rotate(-18deg) scale(.88); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) rotate(0) scale(1); }
+}
+@keyframes chapter-count-in {
+  from { opacity: 0; transform: translate3d(0, 28px, 0) scale(.92); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .chapter-kicker,
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .chapter-label {
+  animation: chapter-slide-in .72s cubic-bezier(.16, 1, .3, 1) both;
+}
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .chapter-heading {
+  animation: chapter-mask-in .95s cubic-bezier(.16, 1, .3, 1) both;
+}
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .chapter-intro {
+  animation: chapter-rise-in .8s .12s cubic-bezier(.16, 1, .3, 1) both;
+}
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .chapter-rail {
+  animation: chapter-slide-in .8s cubic-bezier(.16, 1, .3, 1) both;
+}
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .chapter-row,
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .project-feature-row,
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .experience-item,
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .skills-index-row {
+  animation: chapter-rise-in .8s cubic-bezier(.16, 1, .3, 1) both;
+}
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .chapter-row:nth-child(2),
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .project-feature-row:nth-child(2),
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .experience-item:nth-child(2),
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .skills-index-row:nth-child(2) { animation-delay: .08s; }
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .chapter-row:nth-child(3),
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .project-feature-row:nth-child(3),
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .experience-item:nth-child(3),
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .skills-index-row:nth-child(3) { animation-delay: .16s; }
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .chapter-row:nth-child(4),
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .project-feature-row:nth-child(4),
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .experience-item:nth-child(4),
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .skills-index-row:nth-child(4) { animation-delay: .24s; }
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .project-feature-row {
+  animation-name: chapter-wipe-in;
+}
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .credential-stage {
+  animation: chapter-wipe-in .9s cubic-bezier(.16, 1, .3, 1) both;
+}
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .credential-index-item {
+  animation: chapter-slide-in .65s cubic-bezier(.16, 1, .3, 1) both;
+}
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .credential-index-item:nth-child(2) { animation-delay: .06s; }
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .credential-index-item:nth-child(3) { animation-delay: .12s; }
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .credential-index-item:nth-child(4) { animation-delay: .18s; }
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .credential-index-item:nth-child(5) { animation-delay: .24s; }
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .credential-index-item:nth-child(6) { animation-delay: .30s; }
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .contact-finale__orbit {
+  animation: chapter-orbit-arrive 1.1s cubic-bezier(.16, 1, .3, 1) both;
+}
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .contact-finale__thought,
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .contact-finale__email {
+  animation: chapter-rise-in .75s .18s cubic-bezier(.16, 1, .3, 1) both;
+}
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .credential-count strong {
+  animation: chapter-count-in .8s .15s cubic-bezier(.16, 1, .3, 1) both;
+}
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .contact-finale__eyebrow::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: #FF4F2B;
+  transform-origin: left center;
+  animation: chapter-line-grow 1.1s .15s cubic-bezier(.16, 1, .3, 1) both;
+}
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .contact-finale__eyebrow { position: relative; }
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .contact-finale__bottom {
+  animation: chapter-rise-in .9s .2s cubic-bezier(.16, 1, .3, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live * {
+    animation: none !important;
+    filter: none !important;
+    clip-path: none !important;
+    transform: none !important;
+  }
+}
