@@ -24,71 +24,48 @@ export default function Hero() {
     const artworkRef = useRef(null);
     const indiaX = projects.find((project) => project.id === "indiax") || projects[0];
 
-    // A pinned, scrubbed chapter makes scrolling the animation control. The
-    // 3D sculpture follows the same progress ref, so the object and typography
-    // move as one scene instead of having unrelated, barely-visible parallax.
+    // Pin the opening as a scroll-controlled scene. Only this component controls
+    // the hero's transforms; App.jsx animates the chapters below it.
     useEffect(() => {
         if (reducedMotion || !heroRef.current) return undefined;
 
         const hero = heroRef.current;
+        scrollProgressRef.current = 0;
+
         const context = gsap.context(() => {
+            // Small entrance details are independent from the scroll-controlled title/object.
+            gsap.fromTo(
+                [".orbital-hero__artwork-caption", ".orbital-hero__artwork-index"],
+                { y: 14, autoAlpha: 0 },
+                { y: 0, autoAlpha: 1, duration: 0.9, stagger: 0.14, ease: "power3.out" }
+            );
+
             const scene = gsap.timeline({
+                defaults: { ease: "none" },
                 scrollTrigger: {
                     trigger: hero,
                     start: "top top",
-                    end: () => `+=${Math.round(window.innerHeight * (window.innerWidth < 760 ? 0.9 : 1.35))}`,
+                    end: () => `+=${Math.round(window.innerHeight * (window.innerWidth < 760 ? 0.82 : 1.45))}`,
                     pin: true,
                     pinSpacing: true,
-                    scrub: 0.45,
+                    scrub: 0.9,
                     anticipatePin: 1,
                     invalidateOnRefresh: true,
-                    onUpdate: (self) => {
-                        scrollProgressRef.current = self.progress;
-                    },
-                    onRefresh: (self) => {
-                        scrollProgressRef.current = self.progress;
-                    },
+                    onUpdate: (self) => { scrollProgressRef.current = self.progress; },
+                    onRefresh: (self) => { scrollProgressRef.current = self.progress; },
                 },
             });
 
             scene
-                .to(lineOneRef.current, {
-                    xPercent: -16,
-                    yPercent: -34,
-                    autoAlpha: 0.08,
-                    ease: "none",
-                }, 0)
-                .to(lineTwoRef.current, {
-                    xPercent: 17,
-                    yPercent: -52,
-                    autoAlpha: 0.06,
-                    ease: "none",
-                }, 0)
-                .to(lineThreeRef.current, {
-                    xPercent: -8,
-                    yPercent: -72,
-                    autoAlpha: 0.04,
-                    ease: "none",
-                }, 0)
-                .to(artworkRef.current, {
-                    scale: 1.2,
-                    rotation: 9,
-                    xPercent: -4,
-                    yPercent: -5,
-                    ease: "none",
-                }, 0)
-                .to(".orbital-hero__support", {
-                    y: -72,
-                    autoAlpha: 0,
-                    ease: "none",
-                }, 0.12)
-                .to(".orbital-hero__eyebrow, .orbital-hero__footer", {
-                    autoAlpha: 0,
-                    ease: "none",
-                }, 0.1);
+                .to(lineOneRef.current, { xPercent: -13, yPercent: -24, autoAlpha: 0.12 }, 0)
+                .to(lineTwoRef.current, { xPercent: 12, yPercent: -42, autoAlpha: 0.1 }, 0)
+                .to(lineThreeRef.current, { xPercent: -5, yPercent: -58, autoAlpha: 0.06 }, 0)
+                .to(artworkRef.current, { scale: 1.08, xPercent: -2, yPercent: -2 }, 0)
+                .to(".orbital-hero__support", { y: -44, autoAlpha: 0.05 }, 0.18)
+                .to(".orbital-hero__eyebrow, .orbital-hero__footer", { autoAlpha: 0.05 }, 0.12);
         }, hero);
 
-        // Refresh after browser layout, fonts and the WebGL canvas have settled.
+        // Wait until the first layout has painted before measuring the pin range.
         const refreshId = window.requestAnimationFrame(() => ScrollTrigger.refresh());
 
         return () => {
