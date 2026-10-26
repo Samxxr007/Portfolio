@@ -46,24 +46,24 @@ export default function Contact() {
     };
 
     return (
-        <section id="contact" className="w-full py-24 px-6 md:px-12">
+        <section id="contact" className="story-chapter story-chapter--contact">
             <div className="max-w-6xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-16"
+                    className="text-left mb-12 chapter-head contact-heading"
                 >
                     <h4
-                        className="text-sm font-bold tracking-[0.2em] uppercase mb-4 opacity-70"
+                        className="chapter-kicker text-sm font-bold tracking-[0.2em] uppercase mb-4 opacity-70"
                         style={{ color: "var(--color-accent)" }}
                     >
                         Get In Touch
                     </h4>
-                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 italic font-serif">
+                    <h2 className="chapter-heading contact-title text-4xl md:text-5xl font-bold text-white mb-6 italic font-serif">
                         Let's Work <span style={{ color: "var(--color-accent)" }}>Together</span>
                     </h2>
-                    <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
+                    <p className="chapter-intro text-slate-400 max-w-2xl text-lg leading-relaxed">
                         Have a project in mind or just want to chat? Feel free to reach out, and I'll get back to you as soon as possible.
                     </p>
                 </motion.div>
