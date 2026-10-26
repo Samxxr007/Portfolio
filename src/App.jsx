@@ -33,11 +33,12 @@ export default function App() {
     if (isLoading || reducedMotion) return undefined;
 
     let refreshFrame;
+    const root = document.querySelector(".portfolio-story");
+    if (!root) return undefined;
+
     const context = gsap.context(() => {
-      // A visible entrance sequence makes the motion apparent immediately,
-      // rather than relying only on the hero's scroll-linked parallax.
-      const heroIntro = gsap.timeline({ defaults: { ease: "power3.out" } });
-      heroIntro
+      // Initial entry remains short; the actual story choreography is controlled by scroll below.
+      gsap.timeline({ defaults: { ease: "power3.out" } })
         .fromTo(".orbital-hero__eyebrow",
           { y: 18, autoAlpha: 0 },
           { y: 0, autoAlpha: 1, duration: 0.55 })
@@ -51,33 +52,48 @@ export default function App() {
           { y: 12, autoAlpha: 0 },
           { y: 0, autoAlpha: 1, duration: 0.45 }, "-=0.45");
 
-      // Reveal each section's content wrapper as it enters the viewport.
-      const sections = gsap.utils.toArray(
-        "main > section:not(#home):not(.orbital-feature)"
-      );
-      sections.forEach((section) => {
-        const content = section.firstElementChild;
-        if (!content) return;
+      // Each chapter now has its own staggered, reversible scroll sequence.
+      // Unlike the previous first-child fade, this animates the headings,
+      // chapter rows, and chapter-specific visual elements independently.
+      const chapterTargets = [
+        ".chapter-kicker",
+        ".chapter-heading",
+        ".chapter-intro",
+        ".chapter-rail",
+        ".chapter-row",
+        ".about-statement",
+        ".skills-marquee",
+        ".experience-endnote",
+        ".project-archive",
+        ".projects-endline",
+        ".certificates-heading",
+        ".contact-heading",
+      ].join(", ");
 
-        gsap.fromTo(content,
-          { y: 36, autoAlpha: 0 },
+      gsap.utils.toArray("main > section.story-chapter").forEach((section) => {
+        const targets = section.querySelectorAll(chapterTargets);
+        if (!targets.length) return;
+
+        gsap.fromTo(targets,
+          { y: 34, autoAlpha: 0 },
           {
             y: 0,
             autoAlpha: 1,
-            duration: 0.85,
             ease: "power3.out",
+            stagger: { each: 0.075, from: "start" },
             immediateRender: false,
             scrollTrigger: {
               trigger: section,
-              start: "top 88%",
-              once: true,
+              start: "top 82%",
+              end: "top 24%",
+              scrub: 0.7,
               invalidateOnRefresh: true,
             },
           }
         );
       });
 
-      const feature = document.querySelector(".orbital-feature");
+      const feature = root.querySelector(".orbital-feature");
       if (feature) {
         gsap.fromTo(
           feature.querySelectorAll(".orbital-feature__copy, .orbital-feature__diagram"),
@@ -99,13 +115,17 @@ export default function App() {
         );
       }
 
-      // Recalculate trigger positions after the preloader has left and layout
-      // has been painted, avoiding stale positions on different screen sizes.
+      // A chapter may change height at mobile breakpoints or when its archive expands.
+      // ScrollTrigger's refresh plus responsive refresh keeps starts/ends in sync.
       refreshFrame = window.requestAnimationFrame(() => ScrollTrigger.refresh());
-    });
+    }, root);
+
+    const refreshOnLoad = () => ScrollTrigger.refresh();
+    window.addEventListener("load", refreshOnLoad);
 
     return () => {
       if (refreshFrame) window.cancelAnimationFrame(refreshFrame);
+      window.removeEventListener("load", refreshOnLoad);
       context.revert();
     };
   }, [isLoading, reducedMotion]);
