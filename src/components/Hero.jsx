@@ -41,10 +41,12 @@ export default function Hero() {
                 scrollTrigger: {
                     trigger: hero,
                     start: "top top",
-                    end: () => `+=${Math.round(window.innerHeight * (window.innerWidth < 760 ? 0.78 : 1.25))}`,
-                    pin: true,
-                    pinSpacing: true,
-                    scrub: true,
+                    // Let the document keep moving while the hero animates.
+                    // Pinning here made the first wheel gesture spend itself on the hero,
+                    // so the next gesture was needed to reach the next chapter.
+                    end: () => `+=${Math.round(window.innerHeight * 0.62)}`,
+                    pin: false,
+                    scrub: 0.45,
                     anticipatePin: 1,
                     invalidateOnRefresh: true,
                     onUpdate: (self) => { scrollProgressRef.current = self.progress; },
