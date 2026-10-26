@@ -50,7 +50,9 @@ export default function App() {
           ".project-archive",
           ".credential-stage",
           ".credential-index-item",
-          ".contact-finale__hero",
+          ".contact-finale__thought",
+          ".contact-finale__email",
+          ".contact-finale__orbit",
           ".contact-finale__bottom",
           ".contact-finale__footer",
         ].join(", "));
