@@ -98,7 +98,7 @@ export default function OrbitalCore({ reducedMotion = false, scrollProgressRef }
         // whole artifact. Exponential damping avoids the visible frame-by-frame lag.
         const progress = Math.max(0, Math.min(1, scrollProgressRef?.current ?? 0));
         const targetY = pointerTarget.current.y + progress * Math.PI * 1.12;
-        const damping = 1 - Math.exp(-5.5 * delta);
+        const damping = 1 - Math.exp(-9.5 * delta);
         group.rotation.y += (targetY - group.rotation.y) * damping;
         group.rotation.x += (pointerTarget.current.x - group.rotation.x) * damping;
         group.rotation.z += (0 - group.rotation.z) * damping;
