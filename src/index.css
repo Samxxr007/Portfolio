@@ -1250,3 +1250,50 @@ header.bg-transparent button:hover { color: #FF4F2B !important; }
 @media (prefers-reduced-motion: reduce) {
   .scene-fallback__orbit { animation: none; }
 }
+
+
+/* Legibility pass: keep supporting information readable at real viewport sizes. */
+.portfolio-story > #about.story-chapter .about-statement > p { font-size: 16px !important; line-height: 1.85 !important; }
+.portfolio-story > #about.story-chapter .about-focus-row p { font-size: 14px !important; line-height: 1.7 !important; }
+.portfolio-story > #skills.story-chapter .skills-index-list span { font-size: 14px !important; }
+.portfolio-story > #experience.story-chapter .experience-entry-period { font-size: 11px !important; }
+.portfolio-story > #experience.story-chapter .experience-entry-status,
+.portfolio-story > #experience.story-chapter .experience-entry-location { font-size: 10px !important; }
+.portfolio-story > #experience.story-chapter .experience-entry-company { font-size: 13px !important; }
+.portfolio-story > #experience.story-chapter .experience-entry-company small { font-size: 11px !important; }
+.portfolio-story > #experience.story-chapter .experience-entry-points p { font-size: 14px !important; line-height: 1.78 !important; }
+.portfolio-story > #experience.story-chapter .experience-entry-skills span { font-size: 10px !important; }
+.portfolio-story > #projects.story-chapter .project-feature-meta { font-size: 10px !important; }
+.portfolio-story > #projects.story-chapter .project-feature-description { font-size: 15px !important; line-height: 1.8 !important; }
+.portfolio-story > #projects.story-chapter .project-feature-tags span { font-size: 10px !important; }
+.portfolio-story > #projects.story-chapter .project-feature-metric,
+.portfolio-story > #projects.story-chapter .project-detail-link,
+.portfolio-story > #projects.story-chapter .project-feature-links { font-size: 10px !important; }
+.portfolio-story > #projects.story-chapter .project-archive-category,
+.portfolio-story > #projects.story-chapter .project-archive-metric { font-size: 10px !important; }
+.portfolio-story > #projects.story-chapter .project-archive-filters button { font-size: 10px !important; }
+.portfolio-story > #projects.story-chapter .project-archive-row { font-size: 11px !important; }
+.portfolio-story > #certificates.story-chapter .text-\[10px\],
+.portfolio-story > #certificates.story-chapter .text-\[9px\] { font-size: 10px !important; }
+.portfolio-story > #contact.story-chapter label { color: rgba(245,241,232,.82) !important; }
+.portfolio-story > #contact.story-chapter input,
+.portfolio-story > #contact.story-chapter textarea { font-size: 15px !important; line-height: 1.6 !important; }
+
+@media (max-width: 850px) {
+  .portfolio-story > #about.story-chapter .about-heading,
+  .portfolio-story > #projects.story-chapter .projects-heading .chapter-heading { font-size: clamp(3.5rem, 11.5vw, 6.9rem) !important; }
+  .portfolio-story > #skills.story-chapter .skills-heading .chapter-heading,
+  .portfolio-story > #experience.story-chapter .experience-heading .chapter-heading,
+  .portfolio-story > #contact.story-chapter .contact-heading .chapter-heading { font-size: clamp(3.4rem, 11.2vw, 6.8rem) !important; }
+}
+@media (max-width: 520px) {
+  .portfolio-story > #about.story-chapter .about-heading,
+  .portfolio-story > #skills.story-chapter .skills-heading .chapter-heading,
+  .portfolio-story > #experience.story-chapter .experience-heading .chapter-heading,
+  .portfolio-story > #projects.story-chapter .projects-heading .chapter-heading,
+  .portfolio-story > #contact.story-chapter .contact-heading .chapter-heading { font-size: clamp(2.85rem, 13.5vw, 4.25rem) !important; }
+  .portfolio-story > #about.story-chapter .about-intro { font-size: 22px !important; }
+  .portfolio-story > #experience.story-chapter .experience-entry-points p,
+  .portfolio-story > #projects.story-chapter .project-feature-description { font-size: 14px !important; }
+  .portfolio-story > #projects.story-chapter .project-feature-row { grid-template-columns: 28px minmax(0,1fr); }
+}
