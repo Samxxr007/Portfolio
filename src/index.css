@@ -233,3 +233,110 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .orbital-hero *, .orbital-feature * { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
+
+
+/* Cinematic story system: a consistent editorial language from hero to footer. */
+html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+body { background: #F5F1E8; }
+.portfolio-story { position: relative; isolation: isolate; }
+.portfolio-story > section:not(#home):not(.orbital-feature) {
+  position: relative;
+  padding-block: clamp(76px, 9vw, 138px);
+  border-bottom: 1px solid rgba(21, 21, 21, .12);
+  scroll-margin-top: 84px;
+}
+.portfolio-story > section:not(#home):not(.orbital-feature)::before {
+  content: "";
+  position: absolute;
+  top: clamp(28px, 4vw, 58px);
+  left: max(24px, calc((100vw - 1500px) / 2));
+  width: 30px;
+  height: 2px;
+  background: #FF4F2B;
+}
+.portfolio-story > section:not(#home):not(.orbital-feature) h2,
+.portfolio-story > section:not(#home):not(.orbital-feature) h3,
+.portfolio-story > section:not(#home):not(.orbital-feature) h4 {
+  color: #151515 !important;
+  font-family: var(--font-display);
+  letter-spacing: -.055em;
+}
+.portfolio-story > section:not(#home):not(.orbital-feature) p {
+  color: #57534D;
+}
+.portfolio-story > section:not(#home):not(.orbital-feature) .text-white,
+.portfolio-story > section:not(#home):not(.orbital-feature) .text-slate-100,
+.portfolio-story > section:not(#home):not(.orbital-feature) .text-slate-200,
+.portfolio-story > section:not(#home):not(.orbital-feature) .text-slate-300 {
+  color: #292723 !important;
+}
+.portfolio-story > section:not(#home):not(.orbital-feature) .text-slate-400,
+.portfolio-story > section:not(#home):not(.orbital-feature) .text-slate-500 {
+  color: #6B6861 !important;
+}
+.portfolio-story > section:not(#home):not(.orbital-feature) .bg-slate-900,
+.portfolio-story > section:not(#home):not(.orbital-feature) .bg-slate-900\/50,
+.portfolio-story > section:not(#home):not(.orbital-feature) .bg-slate-950,
+.portfolio-story > section:not(#home):not(.orbital-feature) .bg-black\/20,
+.portfolio-story > section:not(#home):not(.orbital-feature) .bg-black\/30 {
+  background: #ECE7DE !important;
+}
+.portfolio-story > section:not(#home):not(.orbital-feature) .border-slate-800,
+.portfolio-story > section:not(#home):not(.orbital-feature) .border-slate-800\/60,
+.portfolio-story > section:not(#home):not(.orbital-feature) .border-slate-700,
+.portfolio-story > section:not(#home):not(.orbital-feature) .border-slate-700\/50 {
+  border-color: #D8D4CC !important;
+}
+.portfolio-story > section:not(#home):not(.orbital-feature) .glass-card,
+.portfolio-story > section:not(#home):not(.orbital-feature) .glass {
+  background: rgba(255,255,255,.42);
+  border-color: #D8D4CC;
+  box-shadow: 0 10px 32px rgba(21,21,21,.035);
+  backdrop-filter: blur(8px);
+}
+.portfolio-story > section:not(#home):not(.orbital-feature) a:not([class*="bg-"]) {
+  transition: color .2s ease;
+}
+.story-divider {
+  width: min(100% - 8vw, 1500px);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-block: 24px;
+  color: #777168;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .15em;
+}
+.story-divider__line { height: 1px; flex: 1; background: #D8D4CC; }
+.story-footer {
+  width: 100%;
+  min-height: 94px;
+  padding: 22px max(24px, 4vw);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border-top: 1px solid #D8D4CC;
+  background: #F5F1E8;
+  color: #6B6861;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .09em;
+}
+.story-footer a { color: #151515; text-decoration: none; }
+.story-footer a:hover { color: #FF4F2B; }
+.story-footer__brand { font-family: var(--font-display); font-size: 13px; font-weight: 700; letter-spacing: -.03em; }
+.story-footer__brand span { color: #FF4F2B; }
+.story-footer__top { white-space: nowrap; }
+@media (max-width: 760px) {
+  .portfolio-story > section:not(#home):not(.orbital-feature) { padding-block: 68px; }
+  .portfolio-story > section:not(#home):not(.orbital-feature)::before { left: 20px; top: 28px; }
+  .story-divider { width: calc(100% - 40px); gap: 10px; font-size: 8px; }
+  .story-footer { align-items: flex-start; flex-wrap: wrap; padding: 22px 20px; }
+  .story-footer > span { order: 3; width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
