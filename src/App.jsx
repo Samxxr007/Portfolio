@@ -32,23 +32,46 @@ export default function App() {
   useEffect(() => {
     if (isLoading || reducedMotion) return undefined;
 
+    let refreshFrame;
     const context = gsap.context(() => {
-      const sections = gsap.utils.toArray("main > section:not(#home):not(.orbital-feature)");
+      // A visible entrance sequence makes the motion apparent immediately,
+      // rather than relying only on the hero's scroll-linked parallax.
+      const heroIntro = gsap.timeline({ defaults: { ease: "power3.out" } });
+      heroIntro
+        .fromTo(".orbital-hero__eyebrow",
+          { y: 18, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 0.55 })
+        .fromTo(".orbital-hero__copy",
+          { y: 38, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 0.8 }, "-=0.25")
+        .fromTo(".orbital-hero__artwork",
+          { y: 24, scale: 0.96, autoAlpha: 0 },
+          { y: 0, scale: 1, autoAlpha: 1, duration: 0.9 }, "-=0.55")
+        .fromTo(".orbital-hero__footer",
+          { y: 12, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 0.45 }, "-=0.45");
+
+      // Reveal each section's content wrapper as it enters the viewport.
+      const sections = gsap.utils.toArray(
+        "main > section:not(#home):not(.orbital-feature)"
+      );
       sections.forEach((section) => {
-        const children = section.querySelectorAll(":scope > div");
-        if (!children.length) return;
-        gsap.fromTo(children,
-          { y: 34, autoAlpha: 0 },
+        const content = section.firstElementChild;
+        if (!content) return;
+
+        gsap.fromTo(content,
+          { y: 36, autoAlpha: 0 },
           {
             y: 0,
             autoAlpha: 1,
-            duration: 0.8,
-            stagger: 0.11,
+            duration: 0.85,
             ease: "power3.out",
+            immediateRender: false,
             scrollTrigger: {
               trigger: section,
-              start: "top 82%",
+              start: "top 88%",
               once: true,
+              invalidateOnRefresh: true,
             },
           }
         );
@@ -56,7 +79,8 @@ export default function App() {
 
       const feature = document.querySelector(".orbital-feature");
       if (feature) {
-        gsap.fromTo(feature.querySelectorAll(".orbital-feature__copy, .orbital-feature__diagram"),
+        gsap.fromTo(
+          feature.querySelectorAll(".orbital-feature__copy, .orbital-feature__diagram"),
           { y: 42, autoAlpha: 0 },
           {
             y: 0,
@@ -64,13 +88,26 @@ export default function App() {
             duration: 0.9,
             stagger: 0.16,
             ease: "power3.out",
-            scrollTrigger: { trigger: feature, start: "top 75%", once: true },
+            immediateRender: false,
+            scrollTrigger: {
+              trigger: feature,
+              start: "top 85%",
+              once: true,
+              invalidateOnRefresh: true,
+            },
           }
         );
       }
+
+      // Recalculate trigger positions after the preloader has left and layout
+      // has been painted, avoiding stale positions on different screen sizes.
+      refreshFrame = window.requestAnimationFrame(() => ScrollTrigger.refresh());
     });
 
-    return () => context.revert();
+    return () => {
+      if (refreshFrame) window.cancelAnimationFrame(refreshFrame);
+      context.revert();
+    };
   }, [isLoading, reducedMotion]);
 
   return (
