@@ -1,7 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion as Motion, AnimatePresence } from "framer-motion";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -16,7 +14,6 @@ import { ThemeProvider } from "./context/ThemeContext";
 import ClickSpark from "./components/ClickSpark";
 import { useReducedMotion } from "./hooks/useReducedMotion";
 
-if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,86 +27,76 @@ export default function App() {
   }, [isLoading]);
 
   useEffect(() => {
-    if (isLoading || reducedMotion) return undefined;
+    if (isLoading) return undefined;
 
-    let refreshFrame;
     const root = document.querySelector(".portfolio-story");
     if (!root) return undefined;
 
-    const context = gsap.context(() => {
-      // Entrance reveals are time-based and fire once. Avoid tying dozens of text
-      // elements to one long scrubbed timeline, which made wheel scrolling feel sticky.
-      gsap.utils.toArray("main > section.story-chapter").forEach((section) => {
-        const targets = section.querySelectorAll([
-          ".chapter-kicker",
-          ".chapter-heading",
-          ".chapter-intro",
-          ".chapter-rail",
-          ".chapter-row",
-          ".skills-marquee",
-          ".project-archive",
-          ".credential-stage",
-          ".credential-index-item",
-          ".contact-finale__thought",
-          ".contact-finale__email",
-          ".contact-finale__orbit",
-          ".contact-finale__bottom",
-          ".contact-finale__footer",
-        ].join(", "));
+    const selector = [
+      ".chapter-kicker",
+      ".chapter-heading",
+      ".chapter-intro",
+      ".chapter-rail",
+      ".chapter-row",
+      ".skills-marquee",
+      ".project-archive",
+      ".credential-stage",
+      ".credential-index-item",
+      ".contact-finale__thought",
+      ".contact-finale__email",
+      ".contact-finale__orbit",
+      ".contact-finale__bottom",
+      ".contact-finale__footer",
+      ".orbital-feature__copy",
+      ".orbital-feature__diagram",
+    ].join(", ");
 
-        if (!targets.length) return;
+    const targets = Array.from(root.querySelectorAll(selector));
+    if (reducedMotion || !("IntersectionObserver" in window)) {
+      root.classList.remove("story-reveal-ready");
+      targets.forEach((target) => target.classList.remove("story-reveal", "is-visible"));
+      return undefined;
+    }
 
-        gsap.fromTo(targets,
-          { y: 22, autoAlpha: 0 },
-          {
-            y: 0,
-            autoAlpha: 1,
-            duration: 0.72,
-            ease: "power3.out",
-            stagger: { each: 0.055, from: "start" },
-            immediateRender: false,
-            scrollTrigger: {
-              trigger: section,
-              start: "top 79%",
-              once: true,
-              invalidateOnRefresh: true,
-            },
-          }
-        );
+    // Reset stale classes from Vite HMR, browser back/forward and hash navigation.
+    targets.forEach((target) => {
+      target.classList.add("story-reveal");
+      target.classList.remove("is-visible");
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
       });
+    }, {
+      root: null,
+      rootMargin: "0px 0px -7% 0px",
+      threshold: 0.04,
+    });
 
-      const feature = root.querySelector(".orbital-feature");
-      if (feature) {
-        gsap.fromTo(
-          feature.querySelectorAll(".orbital-feature__copy, .orbital-feature__diagram"),
-          { y: 28, autoAlpha: 0 },
-          {
-            y: 0,
-            autoAlpha: 1,
-            duration: 0.85,
-            stagger: 0.12,
-            ease: "power3.out",
-            immediateRender: false,
-            scrollTrigger: {
-              trigger: feature,
-              start: "top 82%",
-              once: true,
-              invalidateOnRefresh: true,
-            },
-          }
-        );
-      }
+    targets.forEach((target) => observer.observe(target));
+    root.classList.add("story-reveal-ready");
 
-      refreshFrame = window.requestAnimationFrame(() => ScrollTrigger.refresh());
-    }, root);
-
-    const refreshOnLoad = () => ScrollTrigger.refresh();
-    window.addEventListener("load", refreshOnLoad);
+    // Hash navigation may land directly in the middle of a chapter; explicitly
+    // reveal anything already on screen so it can never remain invisible.
+    const revealCurrentViewport = () => {
+      targets.forEach((target) => {
+        const rect = target.getBoundingClientRect();
+        if (rect.bottom > 0 && rect.top < window.innerHeight) {
+          target.classList.add("is-visible");
+          observer.unobserve(target);
+        }
+      });
+    };
+    const frame = window.requestAnimationFrame(revealCurrentViewport);
 
     return () => {
-      if (refreshFrame) window.cancelAnimationFrame(refreshFrame);
-      window.removeEventListener("load", refreshOnLoad);
-      context.revert();
+      window.cancelAnimationFrame(frame);
+      observer.disconnect();
+      root.classList.remove("story-reveal-ready");
+      targets.forEach((target) => target.classList.remove("story-reveal", "is-visible"));
     };
   }, [isLoading, reducedMotion]);
 
