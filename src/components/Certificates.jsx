@@ -127,15 +127,15 @@ export default function Certificates() {
     };
 
     return (
-        <section id="certificates" className="w-full py-24 px-6 md:px-12 relative z-10 overflow-hidden">
+        <section id="certificates" className="story-chapter story-chapter--certificates">
             <div className="max-w-7xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-16"
+                    className="chapter-head certificates-heading"
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 italic font-serif leading-tight">
+                    <h2 className="chapter-heading certificates-title text-4xl md:text-5xl font-bold text-white mb-6 italic font-serif leading-tight">
                         Academic & Professional <span style={{ color: "var(--color-accent)" }}>Accolades</span>
                     </h2>
                 </motion.div>
