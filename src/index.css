@@ -2113,3 +2113,64 @@ header.bg-transparent button:hover { color: #FF4F2B !important; }
   .portfolio-story > .story-chapter,
   .portfolio-story > .story-chapter * { scroll-behavior: auto; }
 }
+
+
+/* Opening chapter starts in ink; alternate the remaining chapters from there. */
+.portfolio-story > #home,
+.portfolio-story > #skills,
+.portfolio-story > #projects,
+.portfolio-story > #contact {
+  background-color: var(--story-ink) !important;
+  color: var(--story-paper) !important;
+  color-scheme: dark;
+}
+.portfolio-story > #about,
+.portfolio-story > #experience,
+.portfolio-story > #certificates {
+  background-color: var(--story-paper) !important;
+  color: var(--story-ink) !important;
+  color-scheme: light;
+}
+.portfolio-story > #home :is(h1,h2,h3,h4,p,li,span,small,strong,em,label),
+.portfolio-story > #skills :is(h1,h2,h3,h4,p,li,span,small,strong,em,label),
+.portfolio-story > #projects :is(h1,h2,h3,h4,p,li,span,small,strong,em,label),
+.portfolio-story > #contact :is(h1,h2,h3,h4,p,li,span,small,strong,em,label) { color: inherit; }
+.portfolio-story > #home :is(.orbital-hero__eyebrow,.orbital-hero__footer,.orbital-hero__copy),
+.portfolio-story > #skills :is(.chapter-intro,.skills-index-category,.skills-index-list),
+.portfolio-story > #projects :is(.chapter-intro,.project-period,.project-feature-description,.project-feature-meta),
+.portfolio-story > #contact :is(.contact-finale__thought,.contact-finale__availability,.contact-finale__footer) {
+  color: var(--story-muted-on-dark) !important;
+}
+.portfolio-story > #about :is(h1,h2,h3,h4,p,li,span,small,strong,em,label),
+.portfolio-story > #experience :is(h1,h2,h3,h4,p,li,span,small,strong,em,label),
+.portfolio-story > #certificates :is(h1,h2,h3,h4,p,li,span,small,strong,em,label) { color: inherit; }
+.portfolio-story > #about :is(.chapter-intro,.chapter-text,.about-intro,.about-statement),
+.portfolio-story > #experience :is(.chapter-intro,.experience-entry-description,.experience-entry-period),
+.portfolio-story > #certificates :is(.chapter-intro,.credential-active-details p,.credential-stage__topline) {
+  color: var(--story-muted-on-light) !important;
+}
+.portfolio-story > #home a,
+.portfolio-story > #skills a,
+.portfolio-story > #projects a,
+.portfolio-story > #contact a { color: var(--story-paper); }
+.portfolio-story > #about a,
+.portfolio-story > #experience a,
+.portfolio-story > #certificates a { color: var(--story-ink); }
+.portfolio-story > #home :is(.chapter-kicker,.chapter-label),
+.portfolio-story > #skills :is(.chapter-kicker,.chapter-label,.skills-index-number),
+.portfolio-story > #projects :is(.chapter-kicker,.chapter-label,.project-feature-index),
+.portfolio-story > #contact :is(.chapter-kicker,.chapter-label,.contact-finale__eyebrow),
+.portfolio-story > #about :is(.chapter-kicker,.chapter-label,.chapter-rail__number),
+.portfolio-story > #experience :is(.chapter-kicker,.chapter-label,.experience-entry-number),
+.portfolio-story > #certificates :is(.chapter-kicker,.chapter-label,.credential-count) { color: var(--story-accent) !important; }
+.portfolio-story > #home :is(.chapter-row,.orbital-hero__footer),
+.portfolio-story > #skills :is(.chapter-row,.skills-index-row),
+.portfolio-story > #projects :is(.chapter-row,.project-feature-row,.project-archive),
+.portfolio-story > #contact :is(.contact-finale__bottom,.contact-finale__footer) { border-color: var(--story-rule-dark) !important; }
+.portfolio-story > #about :is(.chapter-row,.about-focus-row),
+.portfolio-story > #experience :is(.chapter-row,.experience-entry),
+.portfolio-story > #certificates :is(.credential-index-item,.credential-stage) { border-color: var(--story-rule-light) !important; }
+
+/* The transparent navbar sits over the black opening, so its type must be light. */
+header:not(.nav-scrolled) .portfolio-brand,
+header:not(.nav-scrolled) .portfolio-nav-link { color: var(--story-paper) !important; }
