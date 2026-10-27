@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Code2, Layout, Database, Terminal, Cpu, Globe } from "lucide-react";
 
 const skillGroups = [
@@ -33,21 +32,6 @@ const skillGroups = [
         skills: ["Framer Motion", "Material-UI", "Recharts", "Leaflet GIS", "Responsive UI"]
     }
 ];
-
-const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.1
-        }
-    }
-};
-
-const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-};
 
 export default function TechStack() {
     const allSkills = skillGroups.flatMap((group) => group.skills);

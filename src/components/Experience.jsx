@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Briefcase, GraduationCap, Calendar, MapPin, Sparkles, CheckCircle2 } from "lucide-react";
 
 const experiences = [

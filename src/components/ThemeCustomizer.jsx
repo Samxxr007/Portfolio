@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion as Motion, AnimatePresence } from "framer-motion";
 import { Settings, X, Droplet } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 
@@ -11,7 +10,7 @@ export default function ThemeCustomizer() {
             {/* Floating Toggle Button (Hidden when customizer panel is open) */}
             <AnimatePresence>
                 {!isCustomizerOpen && (
-                    <motion.button
+                    <Motion.button
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.8 }}
@@ -32,7 +31,7 @@ export default function ThemeCustomizer() {
             {/* Slide-out Panel Backdrop */}
             <AnimatePresence>
                 {isCustomizerOpen && (
-                    <motion.div
+                    <Motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -45,7 +44,7 @@ export default function ThemeCustomizer() {
             {/* Slide-out Panel */}
             <AnimatePresence>
                 {isCustomizerOpen && (
-                    <motion.div
+                    <Motion.div
                         initial={{ x: "100%" }}
                         animate={{ x: 0 }}
                         exit={{ x: "100%" }}

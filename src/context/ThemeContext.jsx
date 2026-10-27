@@ -1,6 +1,8 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
 // Predefined modern color themes with Signal Orange as primary Orbital Archive default
+// Theme data is intentionally colocated with its provider/context.
+// eslint-disable-next-line react-refresh/only-export-components
 export const THEMES = [
     { id: "signal-orange", name: "Signal Orange (Orbital)", color: "#FF5A36", hsl: "11 100% 61%" },
     { id: "ocean-blue", name: "Ocean Blue", color: "#0EA5E9", hsl: "199 89% 48%" },
@@ -64,4 +66,5 @@ export function ThemeProvider({ children }) {
     );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = () => useContext(ThemeContext);

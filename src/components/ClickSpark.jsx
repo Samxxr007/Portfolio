@@ -126,7 +126,7 @@ const ClickSpark = ({
         // Resolve computed accent color if CSS var is used
         let computedColor = sparkColor;
         if (sparkColor.startsWith('var(')) {
-            const varName = sparkColor.match(/var\(([^,\)]+)/)?.[1]?.trim();
+            const varName = sparkColor.match(/var\(([^,)]+)/)?.[1]?.trim();
             if (varName) {
                 computedColor = getComputedStyle(document.documentElement).getPropertyValue(varName).trim() || '#ff7b00';
             }

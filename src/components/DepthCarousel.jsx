@@ -57,22 +57,25 @@ const DepthCarousel = ({
 
     const [active, setActive] = useState(0);
 
-    onChangeRef.current = onChange;
-    cfgRef.current = {
-        count,
-        depth,
-        spread,
-        tilt,
-        tiltDirection,
-        visibleCards,
-        falloff,
-        blur,
-        duration,
-        ease,
-        loop,
-        cardWidth,
-        autoplayDelay
-    };
+    // Keep imperative animation configuration synchronized after commit, not during render.
+    useEffect(() => {
+        onChangeRef.current = onChange;
+        cfgRef.current = {
+            count,
+            depth,
+            spread,
+            tilt,
+            tiltDirection,
+            visibleCards,
+            falloff,
+            blur,
+            duration,
+            ease,
+            loop,
+            cardWidth,
+            autoplayDelay
+        };
+    }, [onChange, count, depth, spread, tilt, tiltDirection, visibleCards, falloff, blur, duration, ease, loop, cardWidth, autoplayDelay]);
 
     const layout = useCallback((pos) => {
         const cfg = cfgRef.current;
