@@ -85,7 +85,7 @@ export default function Hero() {
             <section
                 id="home"
                 ref={heroRef}
-                className="orbital-hero relative isolate w-full overflow-clip bg-[#F5F1E8] text-[#151515]"
+                className="orbital-hero relative isolate w-full overflow-clip"
                 aria-labelledby="hero-title"
             >
                 <div className="orbital-hero__inner">
