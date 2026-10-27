@@ -103,7 +103,7 @@ export default function ResumeModal({ isOpen, onClose }) {
                                 allow="autoplay"
                             />
                         </div>
-                    </motion.div>
+                    </Motion.div>
                 </div>
             )}
         </AnimatePresence>

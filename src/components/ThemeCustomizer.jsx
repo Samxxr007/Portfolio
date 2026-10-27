@@ -24,7 +24,7 @@ export default function ThemeCustomizer() {
                             Customize Theme
                         </span>
                         <Droplet size={20} style={{ color: "var(--color-accent)" }} />
-                    </motion.button>
+                    </Motion.button>
                 )}
             </AnimatePresence>
 
@@ -116,7 +116,7 @@ export default function ThemeCustomizer() {
                                 </button>
                             </div>
                         </div>
-                    </motion.div>
+                    </Motion.div>
                 )}
             </AnimatePresence>
         </>
