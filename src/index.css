@@ -2415,3 +2415,14 @@ header:not(.nav-scrolled) .portfolio-nav-link { color: #F5F1E8 !important; }
     scroll-behavior: auto !important;
   }
 }
+
+
+/* Final specificity guard: chapter labels stay signal-orange despite inherited text rules. */
+.portfolio-story > #about :is(.chapter-kicker,.chapter-label,.chapter-rail__number) ,
+.portfolio-story > #skills :is(.chapter-kicker,.chapter-label,.skills-index-number),
+.portfolio-story > #experience :is(.chapter-kicker,.chapter-label,.experience-entry-number),
+.portfolio-story > #projects :is(.chapter-kicker,.chapter-label,.project-feature-index),
+.portfolio-story > #certificates :is(.chapter-kicker,.chapter-label,.credential-count),
+.portfolio-story > #contact :is(.chapter-kicker,.chapter-label,.contact-finale__eyebrow) {
+  color: #FF4F2B !important;
+}
