@@ -2174,3 +2174,244 @@ header.bg-transparent button:hover { color: #FF4F2B !important; }
 /* The transparent navbar sits over the black opening, so its type must be light. */
 header:not(.nav-scrolled) .portfolio-brand,
 header:not(.nav-scrolled) .portfolio-nav-link { color: var(--story-paper) !important; }
+
+
+/* === FINAL DESIGN TOKENS + CHAPTER MOTION — intentional, non-conflicting overrides ===
+   Keep all page colour decisions in one place. Hero is ink + ivory; section motion
+   animates only opacity/transform (plus one restrained heading mask) for smooth scrolling. */
+:root {
+  --story-paper: #F5F1E8;
+  --story-ink: #111111;
+  --story-muted-on-light: #5D5A54;
+  --story-muted-on-dark: #B7B2A9;
+  --story-accent: #FF4F2B;
+  --story-rule-light: rgba(17, 17, 17, .18);
+  --story-rule-dark: rgba(245, 241, 232, .22);
+}
+
+/* Opening frame: explicitly defeat the old Tailwind colour utilities and older palette rules. */
+.portfolio-story > section#home.orbital-hero {
+  background: #111111 !important;
+  background-color: #111111 !important;
+  color: #F5F1E8 !important;
+  color-scheme: dark;
+  border: 0 !important;
+}
+.portfolio-story > section#home.orbital-hero::before {
+  opacity: .09;
+}
+.portfolio-story > section#home.orbital-hero :is(
+  h1,h2,h3,h4,p,li,span,small,strong,em,label,a,button,
+  .orbital-hero__eyebrow,.orbital-hero__description,.orbital-hero__artwork-caption,
+  .orbital-hero__artwork-index,.orbital-hero__footer
+) {
+  color: #F5F1E8 !important;
+}
+.portfolio-story > section#home.orbital-hero .orbital-hero__title-accent,
+.portfolio-story > section#home.orbital-hero .orbital-hero__period {
+  color: #FF4F2B !important;
+}
+.portfolio-story > section#home.orbital-hero .orbital-hero__status {
+  background: #FF4F2B !important;
+  box-shadow: 0 0 0 4px rgba(255,79,43,.13);
+}
+.portfolio-story > section#home.orbital-hero .orbital-hero__button--primary {
+  background: #FF4F2B !important;
+  border-color: #FF4F2B !important;
+  color: #111111 !important;
+}
+.portfolio-story > section#home.orbital-hero .orbital-hero__button--secondary {
+  background: transparent !important;
+  border-color: rgba(245,241,232,.55) !important;
+  color: #F5F1E8 !important;
+}
+.portfolio-story > section#home.orbital-hero .orbital-hero__button--secondary:hover {
+  background: rgba(245,241,232,.08) !important;
+  border-color: #F5F1E8 !important;
+}
+.portfolio-story > section#home.orbital-hero .orbital-hero__footer,
+.portfolio-story > section#home.orbital-hero .orbital-hero__eyebrow,
+.portfolio-story > section#home.orbital-hero .orbital-hero__artwork-caption,
+.portfolio-story > section#home.orbital-hero .orbital-hero__artwork-index {
+  color: #F5F1E8 !important;
+}
+.portfolio-story > section#home.orbital-hero .orbital-hero__footer a:hover,
+.portfolio-story > section#home.orbital-hero .orbital-hero__text-link:hover {
+  color: #FF4F2B !important;
+}
+
+/* Alternating chapter palette: keep each chapter's background and text paired. */
+.portfolio-story > #about,
+.portfolio-story > #experience,
+.portfolio-story > #certificates {
+  background: #F5F1E8 !important;
+  background-color: #F5F1E8 !important;
+  color: #111111 !important;
+  color-scheme: light;
+}
+.portfolio-story > #skills,
+.portfolio-story > #projects,
+.portfolio-story > #contact {
+  background: #111111 !important;
+  background-color: #111111 !important;
+  color: #F5F1E8 !important;
+  color-scheme: dark;
+}
+.portfolio-story > #about :is(h1,h2,h3,h4,p,li,span,small,strong,em,label),
+.portfolio-story > #experience :is(h1,h2,h3,h4,p,li,span,small,strong,em,label),
+.portfolio-story > #certificates :is(h1,h2,h3,h4,p,li,span,small,strong,em,label) {
+  color: inherit;
+}
+.portfolio-story > #skills :is(h1,h2,h3,h4,p,li,span,small,strong,em,label),
+.portfolio-story > #projects :is(h1,h2,h3,h4,p,li,span,small,strong,em,label),
+.portfolio-story > #contact :is(h1,h2,h3,h4,p,li,span,small,strong,em,label) {
+  color: inherit;
+}
+.portfolio-story > #about :is(.chapter-intro,.chapter-text,.about-intro,.about-statement),
+.portfolio-story > #experience :is(.chapter-intro,.experience-entry-description,.experience-entry-period),
+.portfolio-story > #certificates :is(.chapter-intro,.credential-active-details p,.credential-stage__topline) {
+  color: #5D5A54 !important;
+}
+.portfolio-story > #skills :is(.chapter-intro,.skills-index-category,.skills-index-list),
+.portfolio-story > #projects :is(.chapter-intro,.project-period,.project-feature-description,.project-feature-meta),
+.portfolio-story > #contact :is(.contact-finale__thought,.contact-finale__availability,.contact-finale__footer) {
+  color: #B7B2A9 !important;
+}
+.portfolio-story > #about :is(a,button),
+.portfolio-story > #experience :is(a,button),
+.portfolio-story > #certificates :is(a,button) { color: #111111; }
+.portfolio-story > #skills :is(a,button),
+.portfolio-story > #projects :is(a,button),
+.portfolio-story > #contact :is(a,button) { color: #F5F1E8; }
+.portfolio-story > .story-chapter :is(.chapter-kicker,.chapter-label,.chapter-rail__number,.skills-index-number,.project-feature-index,.contact-finale__eyebrow,.credential-count,.experience-entry-number) {
+  color: #FF4F2B !important;
+}
+.portfolio-story > #about :is(.chapter-row,.about-focus-row),
+.portfolio-story > #experience :is(.chapter-row,.experience-entry),
+.portfolio-story > #certificates :is(.credential-index-item,.credential-stage) {
+  border-color: rgba(17,17,17,.18) !important;
+}
+.portfolio-story > #skills :is(.chapter-row,.skills-index-row),
+.portfolio-story > #projects :is(.chapter-row,.project-feature-row,.project-archive),
+.portfolio-story > #contact :is(.contact-finale__bottom,.contact-finale__footer) {
+  border-color: rgba(245,241,232,.22) !important;
+}
+header:not(.nav-scrolled) .portfolio-brand,
+header:not(.nav-scrolled) .portfolio-nav-link { color: #F5F1E8 !important; }
+
+/* Each chapter has its own entrance language; all are one-shot, transform-first effects. */
+@keyframes story-about-heading {
+  from { opacity: 0; transform: translate3d(0, 38px, 0); clip-path: inset(0 0 25% 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); clip-path: inset(0 0 0 0); }
+}
+@keyframes story-about-rail {
+  from { opacity: 0; transform: translate3d(-24px, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes story-skills-row {
+  from { opacity: 0; transform: translate3d(44px, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes story-experience-row {
+  from { opacity: 0; transform: translate3d(-28px, 20px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes story-project-row {
+  from { opacity: 0; transform: translate3d(0, 28px, 0) scale(.985); clip-path: inset(0 0 12% 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); clip-path: inset(0 0 0 0); }
+}
+@keyframes story-certificate-stage {
+  from { opacity: 0; transform: perspective(900px) translate3d(0, 24px, 0) rotateX(5deg) scale(.97); }
+  to { opacity: 1; transform: perspective(900px) translate3d(0, 0, 0) rotateX(0) scale(1); }
+}
+@keyframes story-contact-arrive {
+  from { opacity: 0; transform: translate3d(0, 24px, 0) scale(.96); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+/* About: masked headline + left-rail arrival. */
+.portfolio-story > #about.chapter-motion-ready.chapter-motion-live .about-heading {
+  animation: story-about-heading .85s cubic-bezier(.16,1,.3,1) both;
+}
+.portfolio-story > #about.chapter-motion-ready.chapter-motion-live .chapter-rail {
+  animation: story-about-rail .8s .08s cubic-bezier(.16,1,.3,1) both;
+}
+.portfolio-story > #about.chapter-motion-ready.chapter-motion-live .about-focus-row {
+  animation: story-about-rail .65s cubic-bezier(.16,1,.3,1) both;
+}
+.portfolio-story > #about.chapter-motion-ready.chapter-motion-live .about-focus-row:nth-child(2) { animation-delay: .08s; }
+.portfolio-story > #about.chapter-motion-ready.chapter-motion-live .about-focus-row:nth-child(3) { animation-delay: .16s; }
+
+/* Skills: rows slide in from the side, in a short cascade. */
+.portfolio-story > #skills.chapter-motion-ready.chapter-motion-live .skills-heading {
+  animation: story-about-heading .8s cubic-bezier(.16,1,.3,1) both;
+}
+.portfolio-story > #skills.chapter-motion-ready.chapter-motion-live .skills-index-row {
+  animation: story-skills-row .65s cubic-bezier(.16,1,.3,1) both;
+}
+.portfolio-story > #skills.chapter-motion-ready.chapter-motion-live .skills-index-row:nth-child(2) { animation-delay: .06s; }
+.portfolio-story > #skills.chapter-motion-ready.chapter-motion-live .skills-index-row:nth-child(3) { animation-delay: .12s; }
+.portfolio-story > #skills.chapter-motion-ready.chapter-motion-live .skills-index-row:nth-child(4) { animation-delay: .18s; }
+
+/* Experience: alternate direction through the timeline. */
+.portfolio-story > #experience.chapter-motion-ready.chapter-motion-live .experience-heading {
+  animation: story-about-heading .8s cubic-bezier(.16,1,.3,1) both;
+}
+.portfolio-story > #experience.chapter-motion-ready.chapter-motion-live .experience-entry {
+  animation: story-experience-row .72s cubic-bezier(.16,1,.3,1) both;
+}
+.portfolio-story > #experience.chapter-motion-ready.chapter-motion-live .experience-entry:nth-child(even) {
+  animation-name: story-skills-row;
+}
+.portfolio-story > #experience.chapter-motion-ready.chapter-motion-live .experience-entry:nth-child(2) { animation-delay: .08s; }
+.portfolio-story > #experience.chapter-motion-ready.chapter-motion-live .experience-entry:nth-child(3) { animation-delay: .16s; }
+.portfolio-story > #experience.chapter-motion-ready.chapter-motion-live .experience-entry:nth-child(4) { animation-delay: .24s; }
+
+/* Projects: each featured row is a clipped editorial reveal, not a generic fade. */
+.portfolio-story > #projects.chapter-motion-ready.chapter-motion-live .projects-heading {
+  animation: story-about-heading .8s cubic-bezier(.16,1,.3,1) both;
+}
+.portfolio-story > #projects.chapter-motion-ready.chapter-motion-live .project-feature-row {
+  animation: story-project-row .8s cubic-bezier(.16,1,.3,1) both;
+}
+.portfolio-story > #projects.chapter-motion-ready.chapter-motion-live .project-feature-row:nth-child(2) { animation-delay: .08s; }
+.portfolio-story > #projects.chapter-motion-ready.chapter-motion-live .project-feature-row:nth-child(3) { animation-delay: .16s; }
+.portfolio-story > #projects.chapter-motion-ready.chapter-motion-live .project-feature-row:nth-child(4) { animation-delay: .24s; }
+
+/* Certificates: featured certificate has a restrained perspective arrival; index cascades. */
+.portfolio-story > #certificates.chapter-motion-ready.chapter-motion-live .credential-stage {
+  animation: story-certificate-stage .9s cubic-bezier(.16,1,.3,1) both;
+}
+.portfolio-story > #certificates.chapter-motion-ready.chapter-motion-live .credential-index-item {
+  animation: story-skills-row .6s cubic-bezier(.16,1,.3,1) both;
+}
+.portfolio-story > #certificates.chapter-motion-ready.chapter-motion-live .credential-index-item:nth-child(2) { animation-delay: .05s; }
+.portfolio-story > #certificates.chapter-motion-ready.chapter-motion-live .credential-index-item:nth-child(3) { animation-delay: .10s; }
+.portfolio-story > #certificates.chapter-motion-ready.chapter-motion-live .credential-index-item:nth-child(4) { animation-delay: .15s; }
+.portfolio-story > #certificates.chapter-motion-ready.chapter-motion-live .credential-index-item:nth-child(5) { animation-delay: .20s; }
+.portfolio-story > #certificates.chapter-motion-ready.chapter-motion-live .credential-index-item:nth-child(6) { animation-delay: .25s; }
+
+/* Contact: scale-set the statement, then bring channels in from below. */
+.portfolio-story > #contact.chapter-motion-ready.chapter-motion-live .contact-finale__hero {
+  animation: story-contact-arrive .9s cubic-bezier(.16,1,.3,1) both;
+}
+.portfolio-story > #contact.chapter-motion-ready.chapter-motion-live .contact-finale__bottom {
+  animation: story-experience-row .8s .14s cubic-bezier(.16,1,.3,1) both;
+}
+.portfolio-story > #contact.chapter-motion-ready.chapter-motion-live .contact-finale__orbit {
+  animation: story-contact-arrive 1.05s .12s cubic-bezier(.16,1,.3,1) both;
+}
+
+@media (max-width: 700px) {
+  .portfolio-story > #home.orbital-hero { min-height: auto; }
+  .portfolio-story > #home.orbital-hero .orbital-hero__title { color: #F5F1E8 !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-story > #home *,
+  .portfolio-story > .story-chapter *,
+  .portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live * {
+    animation: none !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
