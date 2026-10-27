@@ -41,7 +41,7 @@ export default function Navbar() {
     return (
         <>
             <header
-                className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+                className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled ? "nav-scrolled" : ""} ${
                     scrolled
                         ? "bg-[#F5F1E8]/95 backdrop-blur-md border-b border-[#D8D4CC]/80 shadow-[0_2px_12px_rgba(21,21,21,0.03)]"
                         : "bg-transparent"
@@ -57,7 +57,7 @@ export default function Navbar() {
                     {/* Brand Identifier (Far Left) */}
                     <a
                         href="#home"
-                        className="font-display font-bold text-lg sm:text-xl tracking-tight text-[#151515] hover:text-[#FF4F2B] transition-colors select-none"
+                        className="portfolio-brand font-display font-bold text-lg sm:text-xl tracking-tight text-[#151515] hover:text-[#FF4F2B] transition-colors select-none"
                     >
                         SAMEER AHMED G
                     </a>
@@ -68,7 +68,7 @@ export default function Navbar() {
                             <a
                                 key={link.name}
                                 href={link.href}
-                                className="text-sm font-medium tracking-tight text-[#151515] hover:text-[#FF4F2B] transition-colors"
+                                className="portfolio-nav-link text-sm font-medium tracking-tight text-[#151515] hover:text-[#FF4F2B] transition-colors"
                             >
                                 {link.name}
                             </a>

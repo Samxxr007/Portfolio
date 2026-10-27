@@ -1,31 +1,60 @@
-import { motion } from "framer-motion";
+import { ArrowDownRight } from "lucide-react";
+
+const focusAreas = [
+  { number: "01", title: "Product interfaces", text: "Responsive web and mobile experiences with attention to detail." },
+  { number: "02", title: "Reliable systems", text: "APIs, data models, and backend services built to do real work." },
+  { number: "03", title: "Applied intelligence", text: "Computer vision and data-driven features with a practical purpose." },
+];
 
 export default function About() {
-    return (
-        <section id="about" className="w-full py-24 px-6 md:px-12">
-            <div className="max-w-4xl mx-auto">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.5 }}
-                    className="flex flex-col items-center text-center"
-                >
-                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
-                        About <span style={{ color: "var(--color-accent)" }}>Me</span>
-                    </h2>
+  return (
+    <section id="about" className="story-chapter story-chapter--about">
+      <div className="chapter-shell about-layout">
+        <aside className="chapter-rail" aria-label="Chapter information">
+          <span>CHAPTER 01</span>
+          <span>THE BUILDER</span>
+          <span className="chapter-rail__number">01</span>
+          <span className="chapter-rail__bottom">PROFILE / 2026</span>
+        </aside>
 
-                    <div className="glass-card p-8 md:p-12 rounded-2xl w-full border border-slate-800/60 bg-slate-900/50">
-                        <p className="text-lg md:text-xl text-slate-300 leading-relaxed mb-6 font-medium">
-                            React Native Developer at <span style={{ color: "var(--color-accent)" }}>Truck Hai</span> and 3rd-year B.Tech Student at <span style={{ color: "var(--color-accent)" }}>SIMATS University</span>.
-                        </p>
+        <div className="about-content">
+          <p className="chapter-kicker">A developer who thinks beyond the screen</p>
+          <h2 className="chapter-heading about-heading">
+            I BUILD THINGS THAT <em>MATTER.</em>
+          </h2>
+          <p className="chapter-intro about-intro">
+            I’m a software engineer and third-year student at SIMATS, interested in the space where
+            considered interfaces meet dependable engineering.
+          </p>
 
-                        <p className="text-base md:text-lg text-slate-400 leading-relaxed font-light">
-                            Highly motivated Software Engineer specializing in Mobile (React Native / Expo) and Full Stack development. Passionate about building robust cross-platform mobile apps, intelligent AI-backed platforms, and scalable backend microservices in Go, Node.js, and Python. Actively engineering real-world software while maintaining academic excellence at SIMATS.
-                        </p>
-                    </div>
-                </motion.div>
+          <div className="about-bottom">
+            <div className="about-statement">
+              <span className="chapter-label">THE APPROACH</span>
+              <p>
+                From React Native experiences and full-stack products to backend services and
+                computer-vision experiments, I enjoy turning complex problems into tools people
+                can actually use.
+              </p>
+              <a href="#experience" className="chapter-text-link">
+                Follow the journey <ArrowDownRight size={15} aria-hidden="true" />
+              </a>
             </div>
-        </section>
-    );
+
+            <div className="about-focus-list">
+              <span className="chapter-label">WHAT I WORK ON</span>
+              {focusAreas.map((item) => (
+                <div className="about-focus-row chapter-row" key={item.number}>
+                  <span className="about-focus-number">{item.number}</span>
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }

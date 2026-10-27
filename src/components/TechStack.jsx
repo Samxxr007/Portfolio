@@ -50,91 +50,49 @@ const itemVariants = {
 };
 
 export default function TechStack() {
+    const allSkills = skillGroups.flatMap((group) => group.skills);
     return (
-        <section id="skills" className="w-full py-24 px-6 md:px-12">
-            <div className="max-w-6xl mx-auto">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-16"
-                >
-                    <h4
-                        className="text-sm font-bold tracking-[0.2em] uppercase mb-4"
-                        style={{ color: "var(--color-accent)" }}
-                    >
-                        Technical Toolbox
-                    </h4>
-                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 italic font-serif">
-                        Skills & <span style={{ color: "var(--color-accent)" }}>Technologies</span>
-                    </h2>
-                    <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed font-light">
-                        Technologies and tools I use to bring ideas to life and build resilient digital products.
+        <section id="skills" className="story-chapter story-chapter--skills">
+            <div className="chapter-shell skills-shell">
+                <div className="skills-heading chapter-head">
+                    <div>
+                        <p className="chapter-kicker">CHAPTER 02 / THE TOOLKIT</p>
+                        <h2 className="chapter-heading">TOOLS FOR<br /><em>MAKING IDEAS REAL.</em></h2>
+                    </div>
+                    <p className="chapter-intro">
+                        A flexible toolkit across product interfaces, backend infrastructure, and applied AI.
+                        I choose the stack around the problem—not the other way around.
                     </p>
-                </motion.div>
+                </div>
 
-                <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                >
+                <div className="skills-index">
                     {skillGroups.map((group, index) => (
-                        <motion.div
-                            key={index}
-                            variants={itemVariants}
-                            whileHover={{ y: -6, transition: { duration: 0.2 } }}
-                            className="glass-card p-8 rounded-3xl border border-slate-800/70 bg-slate-900/40 relative group overflow-hidden shadow-xl hover:border-[color:var(--color-accent)]/40 hover:shadow-[0_10px_35px_rgba(0,0,0,0.5)] transition-all duration-300"
-                        >
-                            {/* Ambient shine sweep on hover */}
-                            <div
-                                className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.04] to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
-                            />
-
-                            <div className="flex items-center justify-between mb-6">
-                                <div
-                                    className="p-3 rounded-2xl bg-slate-800/60 border border-slate-700/50 w-fit"
-                                    style={{ color: "var(--color-accent)" }}
-                                >
-                                    {group.icon}
-                                </div>
-                                <div
-                                    className="h-2 w-2 rounded-full opacity-60 group-hover:opacity-100 transition-opacity"
-                                    style={{ backgroundColor: "var(--color-accent)" }}
-                                />
+                        <div className="skills-index-row chapter-row" key={group.title}>
+                            <span className="skills-index-number">0{index + 1}</span>
+                            <div className="skills-index-category">
+                                <span className="skills-index-icon">{group.icon}</span>
+                                <h3>{group.title}</h3>
                             </div>
-
-                            <h3 className="text-xl font-bold text-white mb-5 flex items-center gap-2 group-hover:text-[color:var(--color-accent)] transition-colors">
-                                {group.title}
-                            </h3>
-
-                            <div className="flex flex-wrap gap-2">
-                                {group.skills.map((skill, i) => (
-                                    <motion.span
-                                        key={skill}
-                                        whileHover={{
-                                            scale: 1.12,
-                                            y: -4,
-                                            rotate: (i % 2 === 0 ? 2 : -2),
-                                            boxShadow: "0 0 20px color-mix(in srgb, var(--color-accent) 30%, transparent)"
-                                        }}
-                                        whileTap={{ scale: 0.95 }}
-                                        transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                                        className="px-3.5 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer select-none shadow-sm"
-                                        style={{
-                                            borderColor: "color-mix(in srgb, var(--color-accent) 30%, transparent)",
-                                            color: "color-mix(in srgb, var(--color-accent) 90%, white)",
-                                            backgroundColor: "color-mix(in srgb, var(--color-accent) 8%, transparent)"
-                                        }}
-                                    >
-                                        {skill}
-                                    </motion.span>
+                            <div className="skills-index-list">
+                                {group.skills.map((skill) => (
+                                    <span key={skill}>{skill}</span>
                                 ))}
                             </div>
-                        </motion.div>
+                        </div>
                     ))}
-                </motion.div>
+                </div>
+
+                <div className="skills-marquee" aria-label="Technologies used">
+                    <div className="skills-marquee-track">
+                        {[0, 1].map((copy) => (
+                            <span className="skills-marquee-set" key={copy} aria-hidden={copy === 1 ? "true" : undefined}>
+                                {allSkills.map((skill, index) => (
+                                    <span key={skill + index}>{skill}<b> / </b></span>
+                                ))}
+                            </span>
+                        ))}
+                    </div>
+                </div>
             </div>
         </section>
     );

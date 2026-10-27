@@ -1,7 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion as Motion, AnimatePresence } from "framer-motion";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -16,7 +14,6 @@ import { ThemeProvider } from "./context/ThemeContext";
 import ClickSpark from "./components/ClickSpark";
 import { useReducedMotion } from "./hooks/useReducedMotion";
 
-if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,47 +27,52 @@ export default function App() {
   }, [isLoading]);
 
   useEffect(() => {
-    if (isLoading || reducedMotion) return undefined;
+    if (isLoading) return undefined;
 
-    const context = gsap.context(() => {
-      const sections = gsap.utils.toArray("main > section:not(#home):not(.orbital-feature)");
-      sections.forEach((section) => {
-        const children = section.querySelectorAll(":scope > div");
-        if (!children.length) return;
-        gsap.fromTo(children,
-          { y: 34, autoAlpha: 0 },
-          {
-            y: 0,
-            autoAlpha: 1,
-            duration: 0.8,
-            stagger: 0.11,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: section,
-              start: "top 82%",
-              once: true,
-            },
-          }
-        );
+    const sections = Array.from(document.querySelectorAll(
+      ".portfolio-story > .story-chapter, .portfolio-story > #home"
+    ));
+    if (!sections.length) return undefined;
+
+    // Every chapter gets a one-shot entrance when it actually reaches the viewport.
+    // Nothing is hidden before the observer fires, so direct hash links stay readable.
+    if (reducedMotion || !("IntersectionObserver" in window)) {
+      sections.forEach((section) => section.classList.add("chapter-motion-live"));
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("chapter-motion-live");
+        observer.unobserve(entry.target);
       });
+    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
 
-      const feature = document.querySelector(".orbital-feature");
-      if (feature) {
-        gsap.fromTo(feature.querySelectorAll(".orbital-feature__copy, .orbital-feature__diagram"),
-          { y: 42, autoAlpha: 0 },
-          {
-            y: 0,
-            autoAlpha: 1,
-            duration: 0.9,
-            stagger: 0.16,
-            ease: "power3.out",
-            scrollTrigger: { trigger: feature, start: "top 75%", once: true },
-          }
-        );
-      }
+    sections.forEach((section) => {
+      section.classList.remove("chapter-motion-live");
+      section.classList.add("chapter-motion-ready");
+      observer.observe(section);
     });
 
-    return () => context.revert();
+    const revealVisibleSections = () => {
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.bottom > 0 && rect.top < window.innerHeight) {
+          section.classList.add("chapter-motion-live");
+          observer.unobserve(section);
+        }
+      });
+    };
+    const frame = window.requestAnimationFrame(revealVisibleSections);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      observer.disconnect();
+      sections.forEach((section) => {
+        section.classList.remove("chapter-motion-ready", "chapter-motion-live");
+      });
+    };
   }, [isLoading, reducedMotion]);
 
   return (
