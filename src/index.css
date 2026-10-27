@@ -2260,12 +2260,12 @@ header:not(.nav-scrolled) .portfolio-nav-link { color: var(--story-paper) !impor
 .portfolio-story > #about :is(h1,h2,h3,h4,p,li,span,small,strong,em,label),
 .portfolio-story > #experience :is(h1,h2,h3,h4,p,li,span,small,strong,em,label),
 .portfolio-story > #certificates :is(h1,h2,h3,h4,p,li,span,small,strong,em,label) {
-  color: inherit;
+  color: inherit !important;
 }
 .portfolio-story > #skills :is(h1,h2,h3,h4,p,li,span,small,strong,em,label),
 .portfolio-story > #projects :is(h1,h2,h3,h4,p,li,span,small,strong,em,label),
 .portfolio-story > #contact :is(h1,h2,h3,h4,p,li,span,small,strong,em,label) {
-  color: inherit;
+  color: inherit !important;
 }
 .portfolio-story > #about :is(.chapter-intro,.chapter-text,.about-intro,.about-statement),
 .portfolio-story > #experience :is(.chapter-intro,.experience-entry-description,.experience-entry-period),
@@ -2279,10 +2279,10 @@ header:not(.nav-scrolled) .portfolio-nav-link { color: var(--story-paper) !impor
 }
 .portfolio-story > #about :is(a,button),
 .portfolio-story > #experience :is(a,button),
-.portfolio-story > #certificates :is(a,button) { color: #111111; }
+.portfolio-story > #certificates :is(a,button) { color: #111111 !important; }
 .portfolio-story > #skills :is(a,button),
 .portfolio-story > #projects :is(a,button),
-.portfolio-story > #contact :is(a,button) { color: #F5F1E8; }
+.portfolio-story > #contact :is(a,button) { color: #F5F1E8 !important; }
 .portfolio-story > .story-chapter :is(.chapter-kicker,.chapter-label,.chapter-rail__number,.skills-index-number,.project-feature-index,.contact-finale__eyebrow,.credential-count,.experience-entry-number) {
   color: #FF4F2B !important;
 }
