@@ -1,8 +1,11 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, lazy, Suspense } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowDown } from "lucide-react";
-import PortfolioCanvas from "./scene/PortfolioCanvas";
+import SceneFallback from "./scene/SceneFallback";
+
+// Keep Three.js / WebGL off the critical path for the first paint.
+const PortfolioCanvas = lazy(() => import("./scene/PortfolioCanvas"));
 import ResumeModal from "./ResumeModal";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 
@@ -127,7 +130,9 @@ export default function Hero() {
                                 <span>STUDY NO. 001</span>
                                 <span>FORM / MOTION</span>
                             </div>
-                            <PortfolioCanvas scrollProgressRef={scrollProgressRef} className="h-full w-full" />
+                            <Suspense fallback={<SceneFallback className="h-full w-full" />}>
+                                <PortfolioCanvas scrollProgressRef={scrollProgressRef} className="h-full w-full" />
+                            </Suspense>
                             <div className="orbital-hero__artwork-index">OA—01</div>
                         </div>
                     </div>
