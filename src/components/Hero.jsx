@@ -15,6 +15,7 @@ if (typeof window !== "undefined") {
 
 export default function Hero() {
     const [isResumeOpen, setIsResumeOpen] = useState(false);
+    const [shouldLoadScene, setShouldLoadScene] = useState(false);
     const reducedMotion = useReducedMotion();
     const scrollProgressRef = useRef(0);
     const heroRef = useRef(null);
@@ -22,6 +23,28 @@ export default function Hero() {
     const lineTwoRef = useRef(null);
     const lineThreeRef = useRef(null);
     const artworkRef = useRef(null);
+
+    // Defer Three.js evaluation until the browser is idle; the CSS fallback paints immediately.
+    useEffect(() => {
+        if (reducedMotion) return undefined;
+
+        let idleId = null;
+        let timeoutId = null;
+        const enableScene = () => setShouldLoadScene(true);
+
+        if (typeof window.requestIdleCallback === "function") {
+            idleId = window.requestIdleCallback(enableScene, { timeout: 1200 });
+        } else {
+            timeoutId = window.setTimeout(enableScene, 220);
+        }
+
+        return () => {
+            if (idleId !== null && typeof window.cancelIdleCallback === "function") {
+                window.cancelIdleCallback(idleId);
+            }
+            if (timeoutId !== null) window.clearTimeout(timeoutId);
+        };
+    }, [reducedMotion]);
 
     // Pin the opening as a scroll-controlled scene. Only this component controls
     // the hero's transforms; App.jsx animates the chapters below it.
@@ -130,9 +153,13 @@ export default function Hero() {
                                 <span>STUDY NO. 001</span>
                                 <span>FORM / MOTION</span>
                             </div>
-                            <Suspense fallback={<SceneFallback className="h-full w-full" />}>
-                                <PortfolioCanvas scrollProgressRef={scrollProgressRef} className="h-full w-full" />
-                            </Suspense>
+                            {shouldLoadScene && !reducedMotion ? (
+                                <Suspense fallback={<SceneFallback className="h-full w-full" />}>
+                                    <PortfolioCanvas scrollProgressRef={scrollProgressRef} className="h-full w-full" />
+                                </Suspense>
+                            ) : (
+                                <SceneFallback className="h-full w-full" />
+                            )}
                             <div className="orbital-hero__artwork-index">OA—01</div>
                         </div>
                     </div>
