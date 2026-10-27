@@ -30,7 +30,7 @@ export default function App() {
     if (isLoading) return undefined;
 
     const sections = Array.from(document.querySelectorAll(
-      ".portfolio-story > .story-chapter, .portfolio-story > #home"
+      ".portfolio-story > #home, .portfolio-story > .story-chapter"
     ));
     if (!sections.length) return undefined;
 
@@ -47,7 +47,7 @@ export default function App() {
         entry.target.classList.add("chapter-motion-live");
         observer.unobserve(entry.target);
       });
-    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+    }, { threshold: 0.01, rootMargin: "0px 0px 0px 0px" });
 
     sections.forEach((section) => {
       section.classList.remove("chapter-motion-live");
