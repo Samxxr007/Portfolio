@@ -111,7 +111,7 @@ export default function Hero() {
             <section
                 id="home"
                 ref={heroRef}
-                className="orbital-hero relative isolate w-full overflow-clip"
+                className="story-chapter story-chapter--hero orbital-hero relative isolate w-full overflow-clip"
                 aria-labelledby="hero-title"
             >
                 <div className="orbital-hero__inner">
