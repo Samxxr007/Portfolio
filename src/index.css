@@ -2426,3 +2426,19 @@ header:not(.nav-scrolled) .portfolio-nav-link { color: #F5F1E8 !important; }
 .portfolio-story > #contact :is(.chapter-kicker,.chapter-label,.contact-finale__eyebrow) {
   color: #FF4F2B !important;
 }
+
+
+/* Motion trigger patch: hero and chapters share the same viewport observer contract. */
+.portfolio-story > #home.chapter-motion-ready.chapter-motion-live .orbital-hero__copy,
+.portfolio-story > #home.chapter-motion-ready.chapter-motion-live .orbital-hero__artwork {
+  animation: story-contact-arrive .9s cubic-bezier(.16,1,.3,1) both;
+}
+.portfolio-story > #home.chapter-motion-ready.chapter-motion-live .orbital-hero__artwork {
+  animation-delay: .08s;
+}
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .chapter-intro {
+  animation: story-about-rail .75s .1s cubic-bezier(.16,1,.3,1) both;
+}
+.portfolio-story > .story-chapter.chapter-motion-ready.chapter-motion-live .chapter-heading em {
+  animation: story-project-row .8s cubic-bezier(.16,1,.3,1) both;
+}
